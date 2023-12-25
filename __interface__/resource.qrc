@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>resource/icon/dashboard.png</file>
+        <file>resource/icon/data-collection.png</file>
+        <file>resource/icon/extract.png</file>
+        <file>resource/icon/setting.png</file>
+        <file>resource/icon/train.png</file>
+        <file>resource/icon/user.png</file>
+        <file>resource/icon/receipt.png</file>
+        <file>resource/icon/right-arrow.png</file>
+        <file>resource/icon/submit.png</file>
+    </qresource>
+</RCC>

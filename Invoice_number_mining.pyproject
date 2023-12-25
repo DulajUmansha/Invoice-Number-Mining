@@ -1,0 +1,7 @@
+{
+    "files": [
+        "InvoiceNumberExtactor.py",
+        "__interface__/mainwindow.ui",
+        "__interface__/resource.qrc"
+    ]
+}

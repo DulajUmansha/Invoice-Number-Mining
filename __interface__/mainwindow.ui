@@ -1,0 +1,1251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1186</width>
+    <height>716</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Invoice Number Extractor</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/icon/resource/icon/receipt.png</normaloff>:/icon/resource/icon/receipt.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+	background-color: rgb(66, 66, 66);
+	color: rgb(255, 255, 255);
+	border-radius: 8px;
+}
+
+QPushButton{
+	padding: 10px 5px 5px 5px;
+	background-color: rgba(255, 255, 255, 0);
+	border-radius: 5px;
+	font-size:20px;
+	text-align:left;
+	color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+	background-color: rgb(35, 35, 35);
+	color: rgb(255, 255, 255);
+}
+
+QLineEdit{
+	background-color: rgba(255, 255, 255, 255);
+	border-radius: 10px;
+	color: rgb(0, 0, 0);
+}
+
+QLineEdit:disabled{
+	background-color: rgba(255, 255, 255, 150);
+	color: rgb(0, 0, 0);
+}
+QScrollBar:vertical{
+    width:8px; 
+    border-style:flat;
+    border-radius: 4px;
+    border:0px;
+     background: #19191A;
+}
+QScrollBar::handle:vertical{
+    background: rgba(255,255,255,0.50);
+    border-radius: 4px;
+    width:8px;
+    min-height:91px;
+    border-style:flat;
+}
+QScrollBar::handle:vertical::hover{
+    background: rgba(255,255,255,0.90);
+    border-radius: 4px;
+    width:8px;
+}
+QScrollBar::handle:vertical::pressed{
+    background: rgba(255,255,255,0.90);
+    border-radius:4px;
+    width:8px;
+}
+QScrollBar::sub-page:vertical {
+    background: #19191A;
+border-style:flat;
+}
+QScrollBar::add-page:vertical {
+   background: #19191A;
+border-style:flat;
+}
+QScrollBar::add-line:vertical{
+   background: #19191A;
+}
+QScrollBar::sub-line:vertical {
+   background: #19191A;
+}
+QScrollBar:horizontal{
+    height:8px; 
+    border-style:flat;
+    border-radius: 4px;
+    border:0px;
+background: #19191A;
+}
+QScrollBar::handle:horizontal{
+    background: rgba(255,255,255,0.50);
+    border-radius: 4px;
+    height:8px;
+    min-width:91px;
+    border-style:flat;
+}
+QScrollBar::handle:horizontal::hover{
+    background: rgba(255,255,255,0.90);
+    border-radius: 4px;
+    height:8px;
+}
+QScrollBar::handle:horizontal::pressed{
+    background: rgba(255,255,255,0.90);
+    border-radius:4px;
+    height:8px;
+}
+QScrollBar::sub-page:horizontal {
+    background: #19191A;
+    border-style:flat;
+}
+QScrollBar::add-page:horizontal {
+   background: #19191A;
+    border-style:flat;
+}
+QScrollBar::sub-line:horizontal {
+   background: #19191A;
+}
+QScrollBar::add-line:horizontal{
+   background: #19191A;
+}
+
+QComboBox {
+    border-radius: 10px;
+    padding: 1px 18px 1px 10px;
+	background-color: rgba(255, 255, 255, 255);
+	color: rgb(0, 0, 0);
+}
+
+QComboBox:disabled{
+	background-color: rgba(255, 255, 255, 150);
+	color: rgb(0, 0, 0);
+}
+
+QComboBox:editable {
+	background-color: rgb(66, 66, 66);
+	border-radius: 10px;
+}
+
+QComboBox:editable:on {
+	background-color: rgb(66, 66, 66);
+	border-radius: 10px;
+}
+
+QComboBox::drop-down {
+	border-radius: 10px; /* same radius as the QComboBox */
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    border-left-style: solid; /* just a single line */
+}
+
+QComboBox::down-arrow {
+	image: url(:/icons/resource/icon/chevron-down.svg);
+	right: 10px;
+}
+
+QComboBox::down-arrow:on{
+	top: 1px;
+}
+
+QDoubleSpinBox{
+	background-color: rgba(255, 255, 255, 200);
+	color: rgb(0, 0, 0);
+}
+QDoubleSpinBox::up-arrow{
+	image: url(:/icons/resource/icon/chevron-up.svg);
+}
+QDoubleSpinBox::down-arrow{
+	image: url(:/icons/resource/icon/chevron-down.svg);
+}
+QDoubleSpinBox::up-button {
+	border: solid;
+}
+QDoubleSpinBox::down-button {
+	border: solid;
+}
+
+QDateTimeEdit::up-arrow{
+	image: url(:/icons/resource/icon/chevron-up.svg);
+}
+QDateTimeEdit::down-arrow{
+	image: url(:/icons/resource/icon/chevron-down.svg);
+}
+QDateTimeEdit::up-button {
+	border: solid;
+}
+QDateTimeEdit::down-button {
+	border: solid;
+}
+QTableView{
+	background-color: rgba(0,0,0,50);
+	color: rgb(255, 255, 255);
+	font-size:22px;
+}
+QTableView::item
+{
+	color: rgb(255, 255, 255);
+	background-color:rgba(0,0,0,150);
+    text-align:center;
+}
+QTableView::item:hover
+{
+    color:#FFFFFF;
+    background: #4B4B4D;
+}
+QTableView::item:selected
+{
+    color:#FFFFFF;
+    background: #4B4B4D;
+}
+
+QHeaderView{
+	background-color: rgba(0,0,0,70);
+}
+
+
+QHeaderView::section,QTableCornerButton:section
+{
+	font-size:18px;
+    text-align:center;
+    padding:3px;
+    margin:0px;
+	color: rgb(255, 255, 255);
+	background-color: rgba(2,2,50,200);
+    border:1px solid #242424;
+	border-radius: 8px;
+}
+QHeaderView::section:selected
+{
+    color:#FFFFFF;
+    border:1px solid #242424;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QFrame" name="frame_main">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QFrame" name="frame_left">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(24, 30, 54);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <property name="verticalSpacing">
+           <number>20</number>
+          </property>
+          <item row="5" column="0">
+           <widget class="QPushButton" name="btn_training">
+            <property name="font">
+             <font>
+              <family>Inter UI</family>
+              <pointsize>-1</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Train</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/icon/resource/icon/train.png</normaloff>:/icon/resource/icon/train.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>60</width>
+              <height>60</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" alignment="Qt::AlignTop">
+           <widget class="QPushButton" name="btn_account">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+	border-radius:25px;
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/icon/resource/icon/user.png</normaloff>:/icon/resource/icon/user.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>150</width>
+              <height>150</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="label_3">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Dulaj Umansha</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QPushButton" name="btn_extract">
+            <property name="font">
+             <font>
+              <family>Inter UI</family>
+              <pointsize>-1</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>  Extract</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/icon/resource/icon/extract.png</normaloff>:/icon/resource/icon/extract.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="0">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="6" column="0">
+           <widget class="QPushButton" name="btn_collect">
+            <property name="font">
+             <font>
+              <family>Inter UI</family>
+              <pointsize>-1</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>  Collect</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/icon/resource/icon/data-collection.png</normaloff>:/icon/resource/icon/data-collection.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPushButton" name="btn_dashboard">
+            <property name="font">
+             <font>
+              <family>Inter UI</family>
+              <pointsize>-1</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>  Dashboard</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/icon/resource/icon/dashboard.png</normaloff>:/icon/resource/icon/dashboard.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0" alignment="Qt::AlignHCenter">
+           <widget class="QPushButton" name="btn_setting">
+            <property name="font">
+             <font>
+              <family>Inter UI</family>
+              <pointsize>-1</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/icon/resource/icon/setting.png</normaloff>:/icon/resource/icon/setting.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>25</width>
+              <height>25</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QFrame" name="frame_bottom">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string> This is a Research project and  can make mistakes. Consider checking important information.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QStackedWidget" name="stackedWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>979</width>
+           <height>679</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Inter UI</family>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(87, 84, 111);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QWidget" name="page_dashboard">
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="font">
+              <font>
+               <pointsize>28</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Dashboard</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QFrame" name="frame">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_6">
+              <item row="0" column="1" rowspan="2">
+               <widget class="QFrame" name="frame_4">
+                <property name="styleSheet">
+                 <string notr="true">QFrame{
+	background-color: rgb(66, 66, 66);
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_11">
+                 <item row="0" column="0" alignment="Qt::AlignHCenter">
+                  <widget class="QLabel" name="label_5">
+                   <property name="font">
+                    <font>
+                     <pointsize>15</pointsize>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Trained</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QFrame" name="frame_9">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_10">
+                    <item row="0" column="0" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                     <widget class="QLabel" name="trained_value">
+                      <property name="font">
+                       <font>
+                        <pointsize>20</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>2000</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignTop">
+                     <widget class="QLabel" name="label_9">
+                      <property name="text">
+                       <string>Invoices</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QFrame" name="frame_5">
+                <property name="styleSheet">
+                 <string notr="true">QFrame{
+	background-color: rgb(66, 66, 66);
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_12">
+                 <item row="1" column="0">
+                  <widget class="QFrame" name="frame_10">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_13">
+                    <item row="0" column="0" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                     <widget class="QLabel" name="speed_value">
+                      <property name="font">
+                       <font>
+                        <pointsize>20</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>1</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignTop">
+                     <widget class="QLabel" name="label_10">
+                      <property name="text">
+                       <string>minute per Invoice</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="0" column="0" alignment="Qt::AlignHCenter">
+                  <widget class="QLabel" name="label_6">
+                   <property name="font">
+                    <font>
+                     <pointsize>15</pointsize>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Avg Speed</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QFrame" name="frame_6">
+                <property name="styleSheet">
+                 <string notr="true">QFrame{
+	background-color: rgb(66, 66, 66);
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_7">
+                 <item row="0" column="0" alignment="Qt::AlignHCenter">
+                  <widget class="QLabel" name="label_7">
+                   <property name="font">
+                    <font>
+                     <pointsize>15</pointsize>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>History</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QFrame" name="frame_11">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="0" column="2" rowspan="4">
+               <layout class="QFormLayout" name="formLayout">
+                <item row="1" column="0" colspan="2">
+                 <widget class="QFrame" name="frame_14">
+                  <property name="styleSheet">
+                   <string notr="true">QFrame{
+	background-color: rgb(66, 66, 66);
+}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_18">
+                   <item row="0" column="0" alignment="Qt::AlignHCenter">
+                    <widget class="QLabel" name="label_13">
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>MEMORY</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QFrame" name="frame_Memory">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QGridLayout" name="gridLayout_19"/>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="0" column="0" colspan="2">
+                 <widget class="QFrame" name="frame_7">
+                  <property name="styleSheet">
+                   <string notr="true">QFrame{
+	background-color: rgb(66, 66, 66);
+}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_16">
+                   <item row="0" column="0" alignment="Qt::AlignHCenter">
+                    <widget class="QLabel" name="label_12">
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>CPU</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QFrame" name="frame_CPU">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QGridLayout" name="gridLayout_17"/>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0" rowspan="2">
+               <widget class="QFrame" name="frame_3">
+                <property name="styleSheet">
+                 <string notr="true">QFrame{
+	background-color: rgb(66, 66, 66);
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_9">
+                 <item row="0" column="0" alignment="Qt::AlignHCenter">
+                  <widget class="QLabel" name="label_4">
+                   <property name="font">
+                    <font>
+                     <pointsize>15</pointsize>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Accuracy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QFrame" name="frame_8">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_14">
+                    <item row="0" column="0" alignment="Qt::AlignHCenter">
+                     <widget class="QLabel" name="accuracy_value">
+                      <property name="font">
+                       <font>
+                        <pointsize>25</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>78%</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="0" column="0" rowspan="2">
+               <widget class="QFrame" name="frame_12">
+                <property name="styleSheet">
+                 <string notr="true">QFrame{
+	background-color: rgb(66, 66, 66);
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_8">
+                 <item row="0" column="0" alignment="Qt::AlignHCenter">
+                  <widget class="QLabel" name="greetings">
+                   <property name="font">
+                    <font>
+                     <pointsize>20</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Good Morning</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_extract"/>
+         <widget class="QWidget" name="page_training"/>
+         <widget class="QWidget" name="page_collect">
+          <layout class="QGridLayout" name="gridLayout_15">
+           <item row="5" column="0">
+            <widget class="QLineEdit" name="lineEdit_invoNumber">
+             <property name="minimumSize">
+              <size>
+               <width>300</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(54, 54, 54);
+color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="invoDataCollectBtn">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="resource.qrc">
+               <normaloff>:/icon/resource/icon/right-arrow.png</normaloff>:/icon/resource/icon/right-arrow.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>50</width>
+               <height>50</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_8">
+             <property name="font">
+              <font>
+               <pointsize>28</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Collect Invoices</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QFrame" name="frame_image_preview">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(66, 66, 66);</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0" colspan="2" alignment="Qt::AlignLeft">
+            <widget class="QPushButton" name="image_preview_clearBtn">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 82, 82);</string>
+             </property>
+             <property name="text">
+              <string>  Clear  </string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="2">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="spacing">
+              <number>30</number>
+             </property>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QPushButton" name="image_preview_list_clearAllBtn">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 82, 82);</string>
+               </property>
+               <property name="text">
+                <string>  Clear All  </string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QPushButton" name="invoDataSubmitBtn">
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	background-color: rgb(0, 0, 0);
+}
+</string>
+               </property>
+               <property name="text">
+                <string>  Submit  </string>
+               </property>
+               <property name="icon">
+                <iconset resource="resource.qrc">
+                 <normaloff>:/icon/resource/icon/submit.png</normaloff>:/icon/resource/icon/submit.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="2" rowspan="8">
+            <widget class="QListWidget" name="listWidget__image_preview">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(66, 66, 66);</string>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
+             </property>
+             <property name="midLineWidth">
+              <number>10</number>
+             </property>
+             <property name="dragDropMode">
+              <enum>QAbstractItemView::NoDragDrop</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>100</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="resizeMode">
+              <enum>QListView::Adjust</enum>
+             </property>
+             <property name="spacing">
+              <number>20</number>
+             </property>
+             <property name="viewMode">
+              <enum>QListView::IconMode</enum>
+             </property>
+             <property name="itemAlignment">
+              <set>Qt::AlignAbsolute|Qt::AlignCenter|Qt::AlignHCenter|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="0" alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="label_11">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Invoice Number</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_settings"/>
+         <widget class="QWidget" name="page_account"/>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>image_preview_list_clearAllBtn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>listWidget__image_preview</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>829</x>
+     <y>643</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>812</x>
+     <y>527</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>image_preview_clearBtn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>lineEdit_invoNumber</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>640</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>361</x>
+     <y>561</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_invoNumber</sender>
+   <signal>returnPressed()</signal>
+   <receiver>invoDataCollectBtn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>568</x>
+     <y>571</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>701</x>
+     <y>280</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
