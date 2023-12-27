@@ -9,5 +9,8 @@
         <file>resource/icon/receipt.png</file>
         <file>resource/icon/right-arrow.png</file>
         <file>resource/icon/submit.png</file>
+        <file>resource/icon/chevron-right.svg</file>
+        <file>resource/icon/clear.png</file>
+        <file>resource/icon/delete.png</file>
     </qresource>
 </RCC>

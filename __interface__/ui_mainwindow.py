@@ -18,8 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFormLayout, QFrame,
     QGridLayout, QHBoxLayout, QLabel, QLineEdit,
     QListView, QListWidget, QListWidgetItem, QMainWindow,
-    QPushButton, QSizePolicy, QSpacerItem, QStackedWidget,
-    QWidget)
+    QProgressBar, QPushButton, QSizePolicy, QSpacerItem,
+    QStackedWidget, QVBoxLayout, QWidget)
 # import rc_resource
 
 class Ui_MainWindow(object):
@@ -44,12 +44,6 @@ class Ui_MainWindow(object):
 "	text-align:left;\n"
 "	color: rgb(255, 255, 255);\n"
 "}\n"
-"\n"
-"QPushButton:hover{\n"
-"	background-color: rgb(35, 35, 35);\n"
-"	color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
 "QLineEdit{\n"
 "	background-color: rgba(255, 255, 255, 255);\n"
 "	border-radius: 10px;\n"
@@ -74,13 +68,13 @@ class Ui_MainWindow(object):
 "    min-height:91px;\n"
 "    border-style:flat;\n"
 "}\n"
-"QScrollBar::handle:vertical"
-                        "::hover{\n"
+"QScrollBar::handle:vertical::hover{\n"
 "    background: rgba(255,255,255,0.90);\n"
 "    border-radius: 4px;\n"
 "    width:8px;\n"
 "}\n"
-"QScrollBar::handle:vertical::pressed{\n"
+"Q"
+                        "ScrollBar::handle:vertical::pressed{\n"
 "    background: rgba(255,255,255,0.90);\n"
 "    border-radius:4px;\n"
 "    width:8px;\n"
@@ -116,12 +110,12 @@ class Ui_MainWindow(object):
 "QScrollBar::handle:horizontal::hover{\n"
 "    background: rgba(255,255,255,0.90);\n"
 "    border-radius: 4px;\n"
-""
-                        "    height:8px;\n"
+"    height:8px;\n"
 "}\n"
 "QScrollBar::handle:horizontal::pressed{\n"
 "    background: rgba(255,255,255,0.90);\n"
-"    border-radius:4px;\n"
+""
+                        "    border-radius:4px;\n"
 "    height:8px;\n"
 "}\n"
 "QScrollBar::sub-page:horizontal {\n"
@@ -162,10 +156,10 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QComboBox::drop-down {\n"
-""
-                        "	border-radius: 10px; /* same radius as the QComboBox */\n"
+"	border-radius: 10px; /* same radius as the QComboBox */\n"
 "    subcontrol-origin: padding;\n"
-"    subcontrol-position: top right;\n"
+"    subcontrol-po"
+                        "sition: top right;\n"
 "    border-left-style: solid; /* just a single line */\n"
 "}\n"
 "\n"
@@ -204,13 +198,13 @@ class Ui_MainWindow(object):
 "QDateTimeEdit::up-button {\n"
 "	border: solid;\n"
 "}\n"
-""
-                        "QDateTimeEdit::down-button {\n"
+"QDateTimeEdit::down-button {\n"
 "	border: solid;\n"
 "}\n"
 "QTableView{\n"
 "	background-color: rgba(0,0,0,50);\n"
-"	color: rgb(255, 255, 255);\n"
+""
+                        "	color: rgb(255, 255, 255);\n"
 "	font-size:22px;\n"
 "}\n"
 "QTableView::item\n"
@@ -254,9 +248,8 @@ class Ui_MainWindow(object):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
-        self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setContentsMargins(-1, -1, -1, 1)
         self.frame_main = QFrame(self.centralwidget)
         self.frame_main.setObjectName(u"frame_main")
         self.frame_main.setFrameShape(QFrame.StyledPanel)
@@ -267,97 +260,174 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setContentsMargins(5, 5, 5, 0)
         self.frame_left = QFrame(self.frame_main)
         self.frame_left.setObjectName(u"frame_left")
-        self.frame_left.setStyleSheet(u"background-color: rgb(24, 30, 54);")
+        self.frame_left.setStyleSheet(u"QFrame{\n"
+"	background-color: rgb(24, 30, 54);\n"
+"}\n"
+"QPushButton:hover{\n"
+"	background-color: rgba(138, 65, 254, 50);\n"
+"}\n"
+"QProgressBar{\n"
+"	background-color: rgb(24, 30, 54);\n"
+"}")
         self.frame_left.setFrameShape(QFrame.StyledPanel)
         self.frame_left.setFrameShadow(QFrame.Raised)
         self.gridLayout_3 = QGridLayout(self.frame_left)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.gridLayout_3.setVerticalSpacing(20)
-        self.btn_training = QPushButton(self.frame_left)
-        self.btn_training.setObjectName(u"btn_training")
-        font = QFont()
-        font.setFamilies([u"Inter UI"])
-        font.setBold(True)
-        self.btn_training.setFont(font)
-        icon1 = QIcon()
-        icon1.addFile(u":/icon/resource/icon/train.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_training.setIcon(icon1)
-        self.btn_training.setIconSize(QSize(60, 60))
-
-        self.gridLayout_3.addWidget(self.btn_training, 5, 0, 1, 1)
-
         self.btn_account = QPushButton(self.frame_left)
         self.btn_account.setObjectName(u"btn_account")
         self.btn_account.setMinimumSize(QSize(50, 100))
         self.btn_account.setStyleSheet(u"QPushButton{\n"
 "	border-radius:25px;\n"
 "}")
-        icon2 = QIcon()
-        icon2.addFile(u":/icon/resource/icon/user.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_account.setIcon(icon2)
+        icon1 = QIcon()
+        icon1.addFile(u":/icon/resource/icon/user.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_account.setIcon(icon1)
         self.btn_account.setIconSize(QSize(150, 150))
 
-        self.gridLayout_3.addWidget(self.btn_account, 0, 0, 1, 1, Qt.AlignTop)
+        self.gridLayout_3.addWidget(self.btn_account, 0, 0, 1, 2)
 
         self.label_3 = QLabel(self.frame_left)
         self.label_3.setObjectName(u"label_3")
+        font = QFont()
+        font.setPointSize(10)
+        self.label_3.setFont(font)
+
+        self.gridLayout_3.addWidget(self.label_3, 1, 0, 1, 2, Qt.AlignHCenter)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_3.addItem(self.verticalSpacer, 2, 1, 1, 1)
+
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.btn_dashboard = QPushButton(self.frame_left)
+        self.btn_dashboard.setObjectName(u"btn_dashboard")
         font1 = QFont()
-        font1.setPointSize(10)
-        self.label_3.setFont(font1)
+        font1.setFamilies([u"Inter UI"])
+        font1.setBold(True)
+        self.btn_dashboard.setFont(font1)
+        icon2 = QIcon()
+        icon2.addFile(u":/icon/resource/icon/dashboard.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_dashboard.setIcon(icon2)
+        self.btn_dashboard.setIconSize(QSize(30, 30))
+        self.btn_dashboard.setAutoDefault(False)
+        self.btn_dashboard.setFlat(False)
 
-        self.gridLayout_3.addWidget(self.label_3, 1, 0, 1, 1, Qt.AlignHCenter)
+        self.verticalLayout_4.addWidget(self.btn_dashboard)
 
+        self.progressBar_dashboard = QProgressBar(self.frame_left)
+        self.progressBar_dashboard.setObjectName(u"progressBar_dashboard")
+        font2 = QFont()
+        font2.setPointSize(1)
+        font2.setBold(False)
+        self.progressBar_dashboard.setFont(font2)
+        self.progressBar_dashboard.setAutoFillBackground(False)
+        self.progressBar_dashboard.setValue(0)
+        self.progressBar_dashboard.setTextVisible(False)
+        self.progressBar_dashboard.setOrientation(Qt.Horizontal)
+        self.progressBar_dashboard.setTextDirection(QProgressBar.TopToBottom)
+
+        self.verticalLayout_4.addWidget(self.progressBar_dashboard)
+
+
+        self.gridLayout_3.addLayout(self.verticalLayout_4, 3, 0, 1, 2)
+
+        self.verticalLayout_3 = QVBoxLayout()
+        self.verticalLayout_3.setSpacing(0)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.btn_extract = QPushButton(self.frame_left)
         self.btn_extract.setObjectName(u"btn_extract")
-        self.btn_extract.setFont(font)
+        self.btn_extract.setFont(font1)
         icon3 = QIcon()
         icon3.addFile(u":/icon/resource/icon/extract.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_extract.setIcon(icon3)
         self.btn_extract.setIconSize(QSize(30, 30))
 
-        self.gridLayout_3.addWidget(self.btn_extract, 4, 0, 1, 1)
+        self.verticalLayout_3.addWidget(self.btn_extract)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.progressBar_extract = QProgressBar(self.frame_left)
+        self.progressBar_extract.setObjectName(u"progressBar_extract")
+        self.progressBar_extract.setFont(font2)
+        self.progressBar_extract.setAutoFillBackground(False)
+        self.progressBar_extract.setValue(0)
+        self.progressBar_extract.setTextVisible(False)
+        self.progressBar_extract.setOrientation(Qt.Horizontal)
+        self.progressBar_extract.setTextDirection(QProgressBar.TopToBottom)
 
-        self.gridLayout_3.addItem(self.verticalSpacer_2, 7, 0, 1, 1)
+        self.verticalLayout_3.addWidget(self.progressBar_extract)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.gridLayout_3.addItem(self.verticalSpacer, 2, 0, 1, 1)
+        self.gridLayout_3.addLayout(self.verticalLayout_3, 4, 0, 1, 2)
 
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setSpacing(0)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.btn_training = QPushButton(self.frame_left)
+        self.btn_training.setObjectName(u"btn_training")
+        self.btn_training.setFont(font1)
+        icon4 = QIcon()
+        icon4.addFile(u":/icon/resource/icon/train.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_training.setIcon(icon4)
+        self.btn_training.setIconSize(QSize(50, 50))
+
+        self.verticalLayout_2.addWidget(self.btn_training)
+
+        self.progressBar_train = QProgressBar(self.frame_left)
+        self.progressBar_train.setObjectName(u"progressBar_train")
+        self.progressBar_train.setFont(font2)
+        self.progressBar_train.setAutoFillBackground(False)
+        self.progressBar_train.setValue(0)
+        self.progressBar_train.setTextVisible(False)
+        self.progressBar_train.setOrientation(Qt.Horizontal)
+        self.progressBar_train.setTextDirection(QProgressBar.TopToBottom)
+
+        self.verticalLayout_2.addWidget(self.progressBar_train)
+
+
+        self.gridLayout_3.addLayout(self.verticalLayout_2, 5, 0, 1, 2)
+
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.btn_collect = QPushButton(self.frame_left)
         self.btn_collect.setObjectName(u"btn_collect")
-        self.btn_collect.setFont(font)
-        icon4 = QIcon()
-        icon4.addFile(u":/icon/resource/icon/data-collection.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_collect.setIcon(icon4)
+        self.btn_collect.setFont(font1)
+        icon5 = QIcon()
+        icon5.addFile(u":/icon/resource/icon/data-collection.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_collect.setIcon(icon5)
         self.btn_collect.setIconSize(QSize(30, 30))
 
-        self.gridLayout_3.addWidget(self.btn_collect, 6, 0, 1, 1)
+        self.verticalLayout.addWidget(self.btn_collect)
 
-        self.btn_dashboard = QPushButton(self.frame_left)
-        self.btn_dashboard.setObjectName(u"btn_dashboard")
-        self.btn_dashboard.setFont(font)
-        icon5 = QIcon()
-        icon5.addFile(u":/icon/resource/icon/dashboard.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_dashboard.setIcon(icon5)
-        self.btn_dashboard.setIconSize(QSize(30, 30))
-        self.btn_dashboard.setAutoDefault(False)
-        self.btn_dashboard.setFlat(False)
+        self.progressBar_collcet = QProgressBar(self.frame_left)
+        self.progressBar_collcet.setObjectName(u"progressBar_collcet")
+        self.progressBar_collcet.setFont(font2)
+        self.progressBar_collcet.setAutoFillBackground(False)
+        self.progressBar_collcet.setValue(0)
+        self.progressBar_collcet.setTextVisible(False)
+        self.progressBar_collcet.setOrientation(Qt.Horizontal)
+        self.progressBar_collcet.setTextDirection(QProgressBar.TopToBottom)
 
-        self.gridLayout_3.addWidget(self.btn_dashboard, 3, 0, 1, 1)
+        self.verticalLayout.addWidget(self.progressBar_collcet)
+
+
+        self.gridLayout_3.addLayout(self.verticalLayout, 6, 0, 1, 2)
 
         self.btn_setting = QPushButton(self.frame_left)
         self.btn_setting.setObjectName(u"btn_setting")
-        font2 = QFont()
-        font2.setFamilies([u"Inter UI"])
-        self.btn_setting.setFont(font2)
+        font3 = QFont()
+        font3.setFamilies([u"Inter UI"])
+        self.btn_setting.setFont(font3)
         icon6 = QIcon()
         icon6.addFile(u":/icon/resource/icon/setting.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_setting.setIcon(icon6)
         self.btn_setting.setIconSize(QSize(25, 25))
 
-        self.gridLayout_3.addWidget(self.btn_setting, 8, 0, 1, 1, Qt.AlignHCenter)
+        self.gridLayout_3.addWidget(self.btn_setting, 8, 0, 1, 2, Qt.AlignHCenter)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_3.addItem(self.verticalSpacer_2, 7, 0, 1, 2)
 
 
         self.gridLayout_2.addWidget(self.frame_left, 0, 0, 1, 1)
@@ -392,7 +462,7 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
         self.stackedWidget.setSizePolicy(sizePolicy1)
         self.stackedWidget.setMinimumSize(QSize(979, 679))
-        self.stackedWidget.setFont(font2)
+        self.stackedWidget.setFont(font3)
         self.stackedWidget.setStyleSheet(u"background-color: rgb(87, 84, 111);")
         self.stackedWidget.setFrameShape(QFrame.StyledPanel)
         self.stackedWidget.setFrameShadow(QFrame.Raised)
@@ -402,9 +472,9 @@ class Ui_MainWindow(object):
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.label_2 = QLabel(self.page_dashboard)
         self.label_2.setObjectName(u"label_2")
-        font3 = QFont()
-        font3.setPointSize(28)
-        self.label_2.setFont(font3)
+        font4 = QFont()
+        font4.setPointSize(28)
+        self.label_2.setFont(font4)
 
         self.gridLayout_5.addWidget(self.label_2, 0, 0, 1, 1)
 
@@ -427,10 +497,10 @@ class Ui_MainWindow(object):
         self.gridLayout_11.setObjectName(u"gridLayout_11")
         self.label_5 = QLabel(self.frame_4)
         self.label_5.setObjectName(u"label_5")
-        font4 = QFont()
-        font4.setPointSize(15)
-        font4.setBold(True)
-        self.label_5.setFont(font4)
+        font5 = QFont()
+        font5.setPointSize(15)
+        font5.setBold(True)
+        self.label_5.setFont(font5)
 
         self.gridLayout_11.addWidget(self.label_5, 0, 0, 1, 1, Qt.AlignHCenter)
 
@@ -444,9 +514,9 @@ class Ui_MainWindow(object):
         self.gridLayout_10.setObjectName(u"gridLayout_10")
         self.trained_value = QLabel(self.frame_9)
         self.trained_value.setObjectName(u"trained_value")
-        font5 = QFont()
-        font5.setPointSize(20)
-        self.trained_value.setFont(font5)
+        font6 = QFont()
+        font6.setPointSize(20)
+        self.trained_value.setFont(font6)
 
         self.gridLayout_10.addWidget(self.trained_value, 0, 0, 1, 1, Qt.AlignHCenter|Qt.AlignBottom)
 
@@ -480,7 +550,7 @@ class Ui_MainWindow(object):
         self.gridLayout_13.setObjectName(u"gridLayout_13")
         self.speed_value = QLabel(self.frame_10)
         self.speed_value.setObjectName(u"speed_value")
-        self.speed_value.setFont(font5)
+        self.speed_value.setFont(font6)
 
         self.gridLayout_13.addWidget(self.speed_value, 0, 0, 1, 1, Qt.AlignHCenter|Qt.AlignBottom)
 
@@ -494,7 +564,7 @@ class Ui_MainWindow(object):
 
         self.label_6 = QLabel(self.frame_5)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font4)
+        self.label_6.setFont(font5)
 
         self.gridLayout_12.addWidget(self.label_6, 0, 0, 1, 1, Qt.AlignHCenter)
 
@@ -512,7 +582,7 @@ class Ui_MainWindow(object):
         self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.label_7 = QLabel(self.frame_6)
         self.label_7.setObjectName(u"label_7")
-        self.label_7.setFont(font4)
+        self.label_7.setFont(font5)
 
         self.gridLayout_7.addWidget(self.label_7, 0, 0, 1, 1, Qt.AlignHCenter)
 
@@ -541,7 +611,7 @@ class Ui_MainWindow(object):
         self.gridLayout_18.setObjectName(u"gridLayout_18")
         self.label_13 = QLabel(self.frame_14)
         self.label_13.setObjectName(u"label_13")
-        self.label_13.setFont(font4)
+        self.label_13.setFont(font5)
 
         self.gridLayout_18.addWidget(self.label_13, 0, 0, 1, 1, Qt.AlignHCenter)
 
@@ -570,7 +640,7 @@ class Ui_MainWindow(object):
         self.gridLayout_16.setObjectName(u"gridLayout_16")
         self.label_12 = QLabel(self.frame_7)
         self.label_12.setObjectName(u"label_12")
-        self.label_12.setFont(font4)
+        self.label_12.setFont(font5)
 
         self.gridLayout_16.addWidget(self.label_12, 0, 0, 1, 1, Qt.AlignHCenter)
 
@@ -602,7 +672,7 @@ class Ui_MainWindow(object):
         self.gridLayout_9.setObjectName(u"gridLayout_9")
         self.label_4 = QLabel(self.frame_3)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setFont(font4)
+        self.label_4.setFont(font5)
 
         self.gridLayout_9.addWidget(self.label_4, 0, 0, 1, 1, Qt.AlignHCenter)
 
@@ -616,9 +686,9 @@ class Ui_MainWindow(object):
         self.gridLayout_14.setObjectName(u"gridLayout_14")
         self.accuracy_value = QLabel(self.frame_8)
         self.accuracy_value.setObjectName(u"accuracy_value")
-        font6 = QFont()
-        font6.setPointSize(25)
-        self.accuracy_value.setFont(font6)
+        font7 = QFont()
+        font7.setPointSize(25)
+        self.accuracy_value.setFont(font7)
 
         self.gridLayout_14.addWidget(self.accuracy_value, 0, 0, 1, 1, Qt.AlignHCenter)
 
@@ -639,7 +709,7 @@ class Ui_MainWindow(object):
         self.gridLayout_8.setObjectName(u"gridLayout_8")
         self.greetings = QLabel(self.frame_12)
         self.greetings.setObjectName(u"greetings")
-        self.greetings.setFont(font5)
+        self.greetings.setFont(font6)
 
         self.gridLayout_8.addWidget(self.greetings, 0, 0, 1, 1, Qt.AlignHCenter)
 
@@ -658,93 +728,86 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.page_training)
         self.page_collect = QWidget()
         self.page_collect.setObjectName(u"page_collect")
+        self.page_collect.setEnabled(True)
+        self.page_collect.setStyleSheet(u"")
         self.gridLayout_15 = QGridLayout(self.page_collect)
         self.gridLayout_15.setObjectName(u"gridLayout_15")
-        self.lineEdit_invoNumber = QLineEdit(self.page_collect)
-        self.lineEdit_invoNumber.setObjectName(u"lineEdit_invoNumber")
-        self.lineEdit_invoNumber.setMinimumSize(QSize(300, 40))
-        font7 = QFont()
-        font7.setPointSize(12)
-        self.lineEdit_invoNumber.setFont(font7)
-        self.lineEdit_invoNumber.setStyleSheet(u"background-color: rgb(54, 54, 54);\n"
-"color: rgb(255, 255, 255);")
-        self.lineEdit_invoNumber.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_15.addWidget(self.lineEdit_invoNumber, 5, 0, 1, 1)
-
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Minimum)
-
-        self.gridLayout_15.addItem(self.verticalSpacer_3, 2, 0, 1, 1)
-
-        self.invoDataCollectBtn = QPushButton(self.page_collect)
-        self.invoDataCollectBtn.setObjectName(u"invoDataCollectBtn")
-        icon7 = QIcon()
-        icon7.addFile(u":/icon/resource/icon/right-arrow.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.invoDataCollectBtn.setIcon(icon7)
-        self.invoDataCollectBtn.setIconSize(QSize(50, 50))
-
-        self.gridLayout_15.addWidget(self.invoDataCollectBtn, 1, 1, 1, 1)
-
         self.label_8 = QLabel(self.page_collect)
         self.label_8.setObjectName(u"label_8")
-        self.label_8.setFont(font3)
+        self.label_8.setFont(font4)
 
         self.gridLayout_15.addWidget(self.label_8, 0, 0, 1, 1)
 
         self.frame_image_preview = QFrame(self.page_collect)
         self.frame_image_preview.setObjectName(u"frame_image_preview")
-        sizePolicy1.setHeightForWidth(self.frame_image_preview.sizePolicy().hasHeightForWidth())
-        self.frame_image_preview.setSizePolicy(sizePolicy1)
-        self.frame_image_preview.setStyleSheet(u"background-color: rgb(66, 66, 66);")
-        self.frame_image_preview.setFrameShape(QFrame.StyledPanel)
-        self.frame_image_preview.setFrameShadow(QFrame.Raised)
-
-        self.gridLayout_15.addWidget(self.frame_image_preview, 1, 0, 1, 1)
-
-        self.image_preview_clearBtn = QPushButton(self.page_collect)
-        self.image_preview_clearBtn.setObjectName(u"image_preview_clearBtn")
-        self.image_preview_clearBtn.setStyleSheet(u"background-color: rgb(255, 82, 82);")
-
-        self.gridLayout_15.addWidget(self.image_preview_clearBtn, 8, 0, 1, 2, Qt.AlignLeft)
-
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setSpacing(30)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.image_preview_list_clearAllBtn = QPushButton(self.page_collect)
-        self.image_preview_list_clearAllBtn.setObjectName(u"image_preview_list_clearAllBtn")
-        self.image_preview_list_clearAllBtn.setStyleSheet(u"background-color: rgb(255, 82, 82);")
-
-        self.horizontalLayout.addWidget(self.image_preview_list_clearAllBtn, 0, Qt.AlignHCenter)
-
-        self.invoDataSubmitBtn = QPushButton(self.page_collect)
-        self.invoDataSubmitBtn.setObjectName(u"invoDataSubmitBtn")
-        self.invoDataSubmitBtn.setStyleSheet(u"QPushButton{\n"
-"	background-color: rgb(0, 0, 0);\n"
-"}\n"
-"")
-        icon8 = QIcon()
-        icon8.addFile(u":/icon/resource/icon/submit.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.invoDataSubmitBtn.setIcon(icon8)
-        self.invoDataSubmitBtn.setIconSize(QSize(30, 30))
-
-        self.horizontalLayout.addWidget(self.invoDataSubmitBtn, 0, Qt.AlignHCenter)
-
-
-        self.gridLayout_15.addLayout(self.horizontalLayout, 8, 2, 1, 1)
-
-        self.listWidget__image_preview = QListWidget(self.page_collect)
-        self.listWidget__image_preview.setObjectName(u"listWidget__image_preview")
         sizePolicy2 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Expanding)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.frame_image_preview.sizePolicy().hasHeightForWidth())
+        self.frame_image_preview.setSizePolicy(sizePolicy2)
+        self.frame_image_preview.setStyleSheet(u"background-color: rgb(66, 66, 66);")
+        self.frame_image_preview.setFrameShape(QFrame.StyledPanel)
+        self.frame_image_preview.setFrameShadow(QFrame.Raised)
+        self.gridLayout_20 = QGridLayout(self.frame_image_preview)
+        self.gridLayout_20.setObjectName(u"gridLayout_20")
+        self.label_14 = QLabel(self.frame_image_preview)
+        self.label_14.setObjectName(u"label_14")
+        font8 = QFont()
+        font8.setPointSize(15)
+        self.label_14.setFont(font8)
+
+        self.gridLayout_20.addWidget(self.label_14, 1, 0, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
+
+
+        self.gridLayout_15.addWidget(self.frame_image_preview, 1, 0, 1, 1)
+
+        self.verticalLayout_5 = QVBoxLayout()
+        self.verticalLayout_5.setSpacing(0)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.invoDataCollectBtn = QPushButton(self.page_collect)
+        self.invoDataCollectBtn.setObjectName(u"invoDataCollectBtn")
+        self.invoDataCollectBtn.setStyleSheet(u"QPushButton:hover{\n"
+"	background-color: rgb(0, 0, 0);\n"
+"}")
+        icon7 = QIcon()
+        icon7.addFile(u":/icon/resource/icon/right-arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.invoDataCollectBtn.setIcon(icon7)
+        self.invoDataCollectBtn.setIconSize(QSize(50, 50))
+
+        self.verticalLayout_5.addWidget(self.invoDataCollectBtn)
+
+        self.image_preview_clearBtn = QPushButton(self.page_collect)
+        self.image_preview_clearBtn.setObjectName(u"image_preview_clearBtn")
+        font9 = QFont()
+        self.image_preview_clearBtn.setFont(font9)
+        self.image_preview_clearBtn.setStyleSheet(u"QPushButton:hover{\n"
+"	background-color: rgb(0, 0, 0);\n"
+"}")
+        icon8 = QIcon()
+        icon8.addFile(u":/icon/resource/icon/clear.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.image_preview_clearBtn.setIcon(icon8)
+        self.image_preview_clearBtn.setIconSize(QSize(50, 50))
+
+        self.verticalLayout_5.addWidget(self.image_preview_clearBtn)
+
+
+        self.gridLayout_15.addLayout(self.verticalLayout_5, 1, 1, 1, 1)
+
+        self.verticalLayout_7 = QVBoxLayout()
+        self.verticalLayout_7.setSpacing(15)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.listWidget__image_preview = QListWidget(self.page_collect)
+        self.listWidget__image_preview.setObjectName(u"listWidget__image_preview")
         sizePolicy2.setHeightForWidth(self.listWidget__image_preview.sizePolicy().hasHeightForWidth())
         self.listWidget__image_preview.setSizePolicy(sizePolicy2)
-        self.listWidget__image_preview.setFont(font7)
+        font10 = QFont()
+        font10.setPointSize(12)
+        self.listWidget__image_preview.setFont(font10)
         self.listWidget__image_preview.setAutoFillBackground(False)
         self.listWidget__image_preview.setStyleSheet(u"background-color: rgb(66, 66, 66);")
         self.listWidget__image_preview.setLineWidth(1)
         self.listWidget__image_preview.setMidLineWidth(10)
-        self.listWidget__image_preview.setDragDropMode(QAbstractItemView.NoDragDrop)
+        self.listWidget__image_preview.setDragDropMode(QAbstractItemView.DragDrop)
         self.listWidget__image_preview.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.listWidget__image_preview.setIconSize(QSize(100, 100))
         self.listWidget__image_preview.setResizeMode(QListView.Adjust)
@@ -752,19 +815,83 @@ class Ui_MainWindow(object):
         self.listWidget__image_preview.setViewMode(QListView.IconMode)
         self.listWidget__image_preview.setItemAlignment(Qt.AlignAbsolute|Qt.AlignCenter|Qt.AlignHCenter|Qt.AlignVCenter)
 
-        self.gridLayout_15.addWidget(self.listWidget__image_preview, 0, 2, 8, 1)
+        self.verticalLayout_7.addWidget(self.listWidget__image_preview)
 
-        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setSpacing(30)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.image_preview_list_clearAllBtn = QPushButton(self.page_collect)
+        self.image_preview_list_clearAllBtn.setObjectName(u"image_preview_list_clearAllBtn")
+        self.image_preview_list_clearAllBtn.setLayoutDirection(Qt.RightToLeft)
+        self.image_preview_list_clearAllBtn.setStyleSheet(u"QPushButton{\n"
+"	background-color: rgba(0, 0, 0, 100);\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"	background-color: rgb(0, 0, 0);\n"
+"}")
+        icon9 = QIcon()
+        icon9.addFile(u":/icon/resource/icon/delete.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.image_preview_list_clearAllBtn.setIcon(icon9)
+        self.image_preview_list_clearAllBtn.setIconSize(QSize(30, 30))
 
-        self.gridLayout_15.addItem(self.verticalSpacer_4, 7, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.image_preview_list_clearAllBtn)
 
-        self.label_11 = QLabel(self.page_collect)
-        self.label_11.setObjectName(u"label_11")
-        font8 = QFont()
-        font8.setPointSize(14)
-        self.label_11.setFont(font8)
+        self.invoDataSubmitBtn = QPushButton(self.page_collect)
+        self.invoDataSubmitBtn.setObjectName(u"invoDataSubmitBtn")
+        self.invoDataSubmitBtn.setLayoutDirection(Qt.RightToLeft)
+        self.invoDataSubmitBtn.setStyleSheet(u"QPushButton{\n"
+"	background-color: rgba(0, 0, 0, 100);\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"	background-color: rgb(0, 0, 0);\n"
+"}")
+        icon10 = QIcon()
+        icon10.addFile(u":/icon/resource/icon/submit.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.invoDataSubmitBtn.setIcon(icon10)
+        self.invoDataSubmitBtn.setIconSize(QSize(30, 30))
 
-        self.gridLayout_15.addWidget(self.label_11, 3, 0, 1, 1, Qt.AlignHCenter)
+        self.horizontalLayout.addWidget(self.invoDataSubmitBtn)
+
+
+        self.verticalLayout_7.addLayout(self.horizontalLayout)
+
+
+        self.gridLayout_15.addLayout(self.verticalLayout_7, 1, 2, 2, 1)
+
+        self.lineEdit_invoNumber = QLineEdit(self.page_collect)
+        self.lineEdit_invoNumber.setObjectName(u"lineEdit_invoNumber")
+        self.lineEdit_invoNumber.setMinimumSize(QSize(300, 40))
+        self.lineEdit_invoNumber.setFont(font10)
+        self.lineEdit_invoNumber.setStyleSheet(u"background-color: rgb(54, 54, 54);\n"
+"color: rgb(255, 255, 255);")
+        self.lineEdit_invoNumber.setAlignment(Qt.AlignCenter)
+        self.lineEdit_invoNumber.setClearButtonEnabled(True)
+
+        self.gridLayout_15.addWidget(self.lineEdit_invoNumber, 2, 0, 1, 1)
+
+        self.ocr_history_btn = QPushButton(self.page_collect)
+        self.ocr_history_btn.setObjectName(u"ocr_history_btn")
+        self.ocr_history_btn.setFont(font9)
+        self.ocr_history_btn.setLayoutDirection(Qt.RightToLeft)
+        self.ocr_history_btn.setStyleSheet(u"QPushButton{\n"
+"	padding:10px 10px 10px 10px;\n"
+"	color: rgb(0, 0, 0);\n"
+"	background-color: rgba(255, 255, 255, 100);\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"	\n"
+"	background-color: rgba(255, 255, 255, 200);\n"
+"}")
+        icon11 = QIcon()
+        icon11.addFile(u":/icon/resource/icon/chevron-right.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.ocr_history_btn.setIcon(icon11)
+        self.ocr_history_btn.setIconSize(QSize(30, 30))
+        self.ocr_history_btn.setAutoDefault(False)
+
+        self.gridLayout_15.addWidget(self.ocr_history_btn, 3, 0, 1, 3)
 
         self.stackedWidget.addWidget(self.page_collect)
         self.page_settings = QWidget()
@@ -783,10 +910,11 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.image_preview_list_clearAllBtn.clicked["bool"].connect(self.listWidget__image_preview.clear)
-        self.image_preview_clearBtn.clicked["bool"].connect(self.lineEdit_invoNumber.clear)
         self.lineEdit_invoNumber.returnPressed.connect(self.invoDataCollectBtn.click)
+        self.image_preview_clearBtn.clicked.connect(self.lineEdit_invoNumber.clear)
 
         self.btn_dashboard.setDefault(False)
+        self.ocr_history_btn.setDefault(False)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -794,14 +922,14 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Invoice Number Extractor", None))
-        self.btn_training.setText(QCoreApplication.translate("MainWindow", u"Train", None))
         self.btn_account.setText("")
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Dulaj Umansha", None))
-        self.btn_extract.setText(QCoreApplication.translate("MainWindow", u"  Extract", None))
-        self.btn_collect.setText(QCoreApplication.translate("MainWindow", u"  Collect", None))
         self.btn_dashboard.setText(QCoreApplication.translate("MainWindow", u"  Dashboard", None))
+        self.btn_extract.setText(QCoreApplication.translate("MainWindow", u"  Extract", None))
+        self.btn_training.setText(QCoreApplication.translate("MainWindow", u"Train", None))
+        self.btn_collect.setText(QCoreApplication.translate("MainWindow", u"  Collect", None))
         self.btn_setting.setText("")
-        self.label.setText(QCoreApplication.translate("MainWindow", u" This is a Research project and  can make mistakes. Consider checking important information.", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u" This Research Project can make mistakes. Consider checking important information.", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Dashboard", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Trained", None))
         self.trained_value.setText(QCoreApplication.translate("MainWindow", u"2000", None))
@@ -815,11 +943,13 @@ class Ui_MainWindow(object):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Accuracy", None))
         self.accuracy_value.setText(QCoreApplication.translate("MainWindow", u"78%", None))
         self.greetings.setText(QCoreApplication.translate("MainWindow", u"Good Morning", None))
-        self.invoDataCollectBtn.setText("")
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Collect Invoices", None))
-        self.image_preview_clearBtn.setText(QCoreApplication.translate("MainWindow", u"  Clear  ", None))
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Drag & Drop", None))
+        self.invoDataCollectBtn.setText("")
+        self.image_preview_clearBtn.setText("")
         self.image_preview_list_clearAllBtn.setText(QCoreApplication.translate("MainWindow", u"  Clear All  ", None))
         self.invoDataSubmitBtn.setText(QCoreApplication.translate("MainWindow", u"  Submit  ", None))
-        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Invoice Number", None))
+        self.lineEdit_invoNumber.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Invoice Number", None))
+        self.ocr_history_btn.setText(QCoreApplication.translate("MainWindow", u"History", None))
     # retranslateUi
 

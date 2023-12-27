@@ -1,6 +1,7 @@
 from __interface__.ui_mainwindow import *
 import __interface__.rc_resource
 from __interface_control__.cpu_memory_digram import *
+from database.database import Database
 from .__mainwindow_control_stackedWidgets__.page_dashboard import page_dashboard
 from .__mainwindow_control_stackedWidgets__.page_account import page_account
 from .__mainwindow_control_stackedWidgets__.page_extract import page_extract
@@ -15,6 +16,7 @@ class MainWindow(QMainWindow, QWidget):
         self.mainUI = Ui_MainWindow()
         self.mainUI.setupUi(self)
 
+        self.db = Database()
         self.dashboard = page_dashboard(self.mainUI)
         self.account = page_account(self.mainUI)
         self.extract = page_extract(self.mainUI)

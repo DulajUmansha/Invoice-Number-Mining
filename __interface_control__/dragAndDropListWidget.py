@@ -12,7 +12,7 @@ class dragAndDropListWidget(QtWidgets.QListWidget):
         self.setViewMode(QtWidgets.QListView.IconMode)
         self.setIconSize(QtCore.QSize(self.size()))
         self.setResizeMode(QtWidgets.QListView.Adjust)
-        self.setStyleSheet("QListWidget { background-color: rgb(66, 66, 66); color: white; }")
+        self.setStyleSheet("QListWidget { background-color: rgba(66, 66, 66, 0); color: white; }")
 
     def enableDragAndDrop(self, enable=True):
         self.setAcceptDrops(enable)

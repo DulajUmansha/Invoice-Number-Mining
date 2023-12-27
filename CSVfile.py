@@ -1,42 +1,43 @@
-import os.path
 import csv
-
+from PySide6.QtCore import QDateTime, Qt
 
 class CSVfile:
     def __init__(self) -> None:
-        if os.path.exists("ocrData.csv"):
-            self.create()
-
-    def create(self):
-        file = open("ocrData.csv", "w")
-        file.write("ocr_data,X1,Y1,X2,Y2,X3,Y3,X4,Y4\n")
-        file.close()
-
-    def write(self):
         pass
 
-    def append(self, allData: list):
+    def write(self, allData: list):
         for data in allData:
-            csvfile = open("csv data/" + data[0] + ".csv", "w", newline="")
+            print(data[-1])
+            csvfile = open("csv data/" + data[-1], "w", newline="")
             csvwriter = csv.writer(csvfile)
             csvwriter.writerow(
                 ["ocr_data", "X1", "Y1", "X2", "Y2", "X3", "Y3", "X4", "Y4"]
             )
-            for row in data[1:]:
+            for row in data[1:-2]:
                 csvwriter.writerow(row)
 
-    def clear(self):
-        pass
-
-    def formatData(self, invoNoList: list, invoOCRDataList: list):
+    def formatData(self, invoNoList: list, invoOCRDataList: list, invoURLList: list, fileNames:list):
         allData = []
-        for invoNo, label_list in zip(invoNoList, invoOCRDataList):
+        for invoNo, ocr_data, url, fileName in zip(invoNoList, invoOCRDataList, invoURLList, fileNames):
             data = []
             data.append(invoNo)
-            for label, coord_list in label_list:
+            for label, coord_list in ocr_data:
                 row = [label]
                 for coords in coord_list:
                     row.extend(coords)
                 data.append(row)
+            data.append(url)
+            data.append(fileName)
             allData.append(data)
         return allData
+    
+    def generateFileName(self):
+        currentDateTime = QDateTime.currentDateTime()
+        currentTime = currentDateTime.time()
+        milliseconds = currentTime.msec()
+        milliseconds_str = f"{milliseconds:03d}"
+        time_str = currentTime.toString("hhmmss")
+        file_name = f"ocr_{currentDateTime.date().toString(Qt.ISODate)}_{time_str}_{milliseconds_str}.csv"
+        file_name = file_name.replace("-", "").replace(":", "")
+
+        return file_name
