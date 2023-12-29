@@ -1,5 +1,7 @@
 from __interface__.ui_mainwindow import Ui_MainWindow
+from __interface_control__.__mainwindow_control_stackedWidgets__.page_ocrLibrary import page_ocrLibrary
 from __interface_control__.dragAndDropListWidget import *
+from PySide6.QtWidgets import QAbstractItemView
 import os, time
 from OCR import OCR
 from CSVfile import CSVfile
@@ -47,10 +49,9 @@ class OCRThread(QThread):
             tblOCRData = tbl_ocr_data()
 
             for datum in formatedData:
-                print(datum[0])
                 tblOCRData.set_invo_no(datum[0])
-                tblOCRData.set_file_path(datum[2])
-                tblOCRData.set_csv_file_name(datum[3])
+                tblOCRData.set_file_path(datum[-2])
+                tblOCRData.set_csv_file_name(datum[-1])
                 tblOCRData.insertData()
                 
         except Exception as e:
@@ -61,13 +62,19 @@ class OCRThread(QThread):
 class page_collect:
     def __init__(self, mainUI: Ui_MainWindow) -> None:
         self.mainUI = mainUI
+        self.ocrLibrary = page_ocrLibrary(self.mainUI)
+
         self.ListWidget = dragAndDropListWidget()
+        self.ListWidget.setSelectionMode(QAbstractItemView.NoSelection)
         self.mainUI.gridLayout_15.addWidget(self.ListWidget, 1, 0, 1, 1)
+
         self.ListWidget.fileDropped.connect(self.pictureDropped)
         self.mainUI.invoDataCollectBtn.clicked.connect(self.invoDataCollectBtn_clicked)
         self.mainUI.invoDataSubmitBtn.clicked.connect(self.invoDataSubmitBtn_clicked)
         self.mainUI.image_preview_clearBtn.clicked.connect(self.image_preview_clearBtn_clicked)
         self.mainUI.image_preview_list_clearAllBtn.clicked.connect(self.image_preview_list_clearAllBtn_clicked)
+        self.mainUI.ocr_library_btn.clicked.connect(self.ocrLibrary.stackedBtn_clicked)
+
         self.collectedInvoiceList = []
 
     def stackedBtn_clicked(self):

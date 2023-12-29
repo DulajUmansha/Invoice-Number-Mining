@@ -1,13 +1,13 @@
-
 from PySide6.QtSql import QSqlDatabase
+
 
 class Database:
     def __init__(self) -> None:
-        self.db_host_name = 'localhost'     
-        self.db_name = 'invoice_number_mining'     
-        self.db_user_name = 'root'     
-        self.db_password = ''     
-        self.db = QSqlDatabase.addDatabase("QMYSQL")   
+        self.db_host_name = "localhost"
+        self.db_name = "invoice_number_mining"
+        self.db_user_name = "root"
+        self.db_password = ""
+        self.db = QSqlDatabase.addDatabase("QMYSQL")
 
     def get_db_host_name(self) -> str:
         return self.db_host_name
@@ -42,4 +42,3 @@ class Database:
 
     def close(self):
         self.db.close()
-        

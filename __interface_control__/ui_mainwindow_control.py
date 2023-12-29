@@ -1,6 +1,6 @@
+from PySide6.QtGui import QCloseEvent
 from __interface__.ui_mainwindow import *
 import __interface__.rc_resource
-from __interface_control__.cpu_memory_digram import *
 from database.database import Database
 from .__mainwindow_control_stackedWidgets__.page_dashboard import page_dashboard
 from .__mainwindow_control_stackedWidgets__.page_account import page_account
@@ -25,30 +25,6 @@ class MainWindow(QMainWindow, QWidget):
         self.setting = page_settings(self.mainUI)
 
         self.buttonClicked()
-        self.cpu_memory_canvas()
-
-    def cpu_memory_canvas(self):
-        # Create CPU usage canvas
-        self.cpu_sc = MplCanvas(self.mainUI.frame_CPU, width=5, height=2, dpi=100)
-        self.mainUI.gridLayout_16.addWidget(self.cpu_sc)
-
-        # Create Memory usage canvas
-        self.memory_sc = MplCanvas(self.mainUI.frame_Memory,  width=5, height=2, dpi=100)
-        self.mainUI.gridLayout_18.addWidget(self.memory_sc)
-
-        # Create a worker thread
-        self.worker_thread = WorkerThread()
-        self.worker_thread.update_signal.connect(self.update_plots)
-        self.worker_thread.start()
-
-    def update_plots(self, cpu_data, memory_data):
-        update_plot(cpu_data, memory_data, self.cpu_sc, self.memory_sc)
-
-    def closeEvent(self, event):
-        # Terminate the worker thread forcefully
-        self.worker_thread.terminate()
-        self.worker_thread.wait()
-        event.accept()
 
     def buttonClicked(self):
         self.mainUI.btn_dashboard.clicked.connect(self.dashboard.stackedBtn_clicked)
@@ -57,3 +33,6 @@ class MainWindow(QMainWindow, QWidget):
         self.mainUI.btn_training.clicked.connect(self.training.stackedBtn_clicked)
         self.mainUI.btn_collect.clicked.connect(self.collect.stackedBtn_clicked)
         self.mainUI.btn_setting.clicked.connect(self.setting.stackedBtn_clicked)
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        self.dashboard.close(event)

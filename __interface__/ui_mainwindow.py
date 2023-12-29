@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1186, 716)
+        MainWindow.resize(1201, 716)
         icon = QIcon()
         icon.addFile(u":/icon/resource/icon/receipt.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -294,10 +294,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.label_3, 1, 0, 1, 2, Qt.AlignHCenter)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_3.addItem(self.verticalSpacer, 2, 1, 1, 1)
-
         self.verticalLayout_4 = QVBoxLayout()
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.btn_dashboard = QPushButton(self.frame_left)
@@ -428,6 +424,10 @@ class Ui_MainWindow(object):
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.gridLayout_3.addItem(self.verticalSpacer_2, 7, 0, 1, 2)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_3.addItem(self.verticalSpacer, 2, 0, 1, 2)
 
 
         self.gridLayout_2.addWidget(self.frame_left, 0, 0, 1, 1)
@@ -871,11 +871,11 @@ class Ui_MainWindow(object):
 
         self.gridLayout_15.addWidget(self.lineEdit_invoNumber, 2, 0, 1, 1)
 
-        self.ocr_history_btn = QPushButton(self.page_collect)
-        self.ocr_history_btn.setObjectName(u"ocr_history_btn")
-        self.ocr_history_btn.setFont(font9)
-        self.ocr_history_btn.setLayoutDirection(Qt.RightToLeft)
-        self.ocr_history_btn.setStyleSheet(u"QPushButton{\n"
+        self.ocr_library_btn = QPushButton(self.page_collect)
+        self.ocr_library_btn.setObjectName(u"ocr_library_btn")
+        self.ocr_library_btn.setFont(font9)
+        self.ocr_library_btn.setLayoutDirection(Qt.RightToLeft)
+        self.ocr_library_btn.setStyleSheet(u"QPushButton{\n"
 "	padding:10px 10px 10px 10px;\n"
 "	color: rgb(0, 0, 0);\n"
 "	background-color: rgba(255, 255, 255, 100);\n"
@@ -887,11 +887,11 @@ class Ui_MainWindow(object):
 "}")
         icon11 = QIcon()
         icon11.addFile(u":/icon/resource/icon/chevron-right.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.ocr_history_btn.setIcon(icon11)
-        self.ocr_history_btn.setIconSize(QSize(30, 30))
-        self.ocr_history_btn.setAutoDefault(False)
+        self.ocr_library_btn.setIcon(icon11)
+        self.ocr_library_btn.setIconSize(QSize(30, 30))
+        self.ocr_library_btn.setAutoDefault(False)
 
-        self.gridLayout_15.addWidget(self.ocr_history_btn, 3, 0, 1, 3)
+        self.gridLayout_15.addWidget(self.ocr_library_btn, 3, 0, 1, 3)
 
         self.stackedWidget.addWidget(self.page_collect)
         self.page_settings = QWidget()
@@ -900,6 +900,53 @@ class Ui_MainWindow(object):
         self.page_account = QWidget()
         self.page_account.setObjectName(u"page_account")
         self.stackedWidget.addWidget(self.page_account)
+        self.page_ocrLibrary = QWidget()
+        self.page_ocrLibrary.setObjectName(u"page_ocrLibrary")
+        self.gridLayout_21 = QGridLayout(self.page_ocrLibrary)
+        self.gridLayout_21.setObjectName(u"gridLayout_21")
+        self.library_listWidget = QListWidget(self.page_ocrLibrary)
+        self.library_listWidget.setObjectName(u"library_listWidget")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(2)
+        sizePolicy3.setHeightForWidth(self.library_listWidget.sizePolicy().hasHeightForWidth())
+        self.library_listWidget.setSizePolicy(sizePolicy3)
+        self.library_listWidget.setDragDropMode(QAbstractItemView.NoDragDrop)
+        self.library_listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.library_listWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.library_listWidget.setIconSize(QSize(100, 100))
+        self.library_listWidget.setFlow(QListView.LeftToRight)
+        self.library_listWidget.setResizeMode(QListView.Adjust)
+        self.library_listWidget.setViewMode(QListView.IconMode)
+        self.library_listWidget.setItemAlignment(Qt.AlignCenter)
+
+        self.gridLayout_21.addWidget(self.library_listWidget, 2, 0, 1, 1)
+
+        self.label_15 = QLabel(self.page_ocrLibrary)
+        self.label_15.setObjectName(u"label_15")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(1)
+        sizePolicy4.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
+        self.label_15.setSizePolicy(sizePolicy4)
+        self.label_15.setFont(font4)
+
+        self.gridLayout_21.addWidget(self.label_15, 0, 0, 1, 1, Qt.AlignHCenter)
+
+        self.frame_2 = QFrame(self.page_ocrLibrary)
+        self.frame_2.setObjectName(u"frame_2")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(10)
+        sizePolicy5.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
+        self.frame_2.setSizePolicy(sizePolicy5)
+        self.frame_2.setStyleSheet(u"background-color: rgba(255, 255, 255, 150);")
+        self.frame_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+
+        self.gridLayout_21.addWidget(self.frame_2, 1, 0, 1, 1)
+
+        self.stackedWidget.addWidget(self.page_ocrLibrary)
 
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 1, 1, 1)
 
@@ -914,7 +961,8 @@ class Ui_MainWindow(object):
         self.image_preview_clearBtn.clicked.connect(self.lineEdit_invoNumber.clear)
 
         self.btn_dashboard.setDefault(False)
-        self.ocr_history_btn.setDefault(False)
+        self.stackedWidget.setCurrentIndex(6)
+        self.ocr_library_btn.setDefault(False)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -950,6 +998,7 @@ class Ui_MainWindow(object):
         self.image_preview_list_clearAllBtn.setText(QCoreApplication.translate("MainWindow", u"  Clear All  ", None))
         self.invoDataSubmitBtn.setText(QCoreApplication.translate("MainWindow", u"  Submit  ", None))
         self.lineEdit_invoNumber.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Invoice Number", None))
-        self.ocr_history_btn.setText(QCoreApplication.translate("MainWindow", u"History", None))
+        self.ocr_library_btn.setText(QCoreApplication.translate("MainWindow", u"Library", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Library", None))
     # retranslateUi
 
