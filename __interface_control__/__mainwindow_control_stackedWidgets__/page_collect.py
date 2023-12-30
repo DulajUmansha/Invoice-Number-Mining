@@ -1,5 +1,7 @@
 from __interface__.ui_mainwindow import Ui_MainWindow
-from __interface_control__.__mainwindow_control_stackedWidgets__.page_ocrLibrary import page_ocrLibrary
+from __interface_control__.__mainwindow_control_stackedWidgets__.page_ocrLibrary import (
+    page_ocrLibrary,
+)
 from __interface_control__.dragAndDropListWidget import *
 from PySide6.QtWidgets import QAbstractItemView
 import os, time
@@ -8,6 +10,7 @@ from CSVfile import CSVfile
 from PySide6.QtCore import QThread, Signal
 from database.database import Database
 from database.tbl_ocr_data import tbl_ocr_data
+
 
 class OCRThread(QThread):
     ocr_completed = Signal(object)
@@ -25,12 +28,18 @@ class OCRThread(QThread):
             self.invoiceNumber = [no[1] for no in self.imageData_list]
             self.update_progress(20)
 
-            fileNames = [self.csvFile.generateFileName() for url in self.imageData_list if time.sleep(0.2) is None]
+            fileNames = [
+                self.csvFile.generateFileName()
+                for url in self.imageData_list
+                if time.sleep(0.2) is None
+            ]
 
             data = self.ocr.read(self.invoiceUrlList)
             self.update_progress(70)
 
-            formatedData = self.csvFile.formatData(self.invoiceNumber, data, self.invoiceUrlList, fileNames)
+            formatedData = self.csvFile.formatData(
+                self.invoiceNumber, data, self.invoiceUrlList, fileNames
+            )
             self.csvFile.write(formatedData)
 
             self.update_database(formatedData)
@@ -53,11 +62,12 @@ class OCRThread(QThread):
                 tblOCRData.set_file_path(datum[-2])
                 tblOCRData.set_csv_file_name(datum[-1])
                 tblOCRData.insertData()
-                
+
         except Exception as e:
             print(f"Error updating database: {str(e)}")
         finally:
             db.close()
+
 
 class page_collect:
     def __init__(self, mainUI: Ui_MainWindow) -> None:
@@ -71,8 +81,12 @@ class page_collect:
         self.ListWidget.fileDropped.connect(self.pictureDropped)
         self.mainUI.invoDataCollectBtn.clicked.connect(self.invoDataCollectBtn_clicked)
         self.mainUI.invoDataSubmitBtn.clicked.connect(self.invoDataSubmitBtn_clicked)
-        self.mainUI.image_preview_clearBtn.clicked.connect(self.image_preview_clearBtn_clicked)
-        self.mainUI.image_preview_list_clearAllBtn.clicked.connect(self.image_preview_list_clearAllBtn_clicked)
+        self.mainUI.image_preview_clearBtn.clicked.connect(
+            self.image_preview_clearBtn_clicked
+        )
+        self.mainUI.image_preview_list_clearAllBtn.clicked.connect(
+            self.image_preview_list_clearAllBtn_clicked
+        )
         self.mainUI.ocr_library_btn.clicked.connect(self.ocrLibrary.stackedBtn_clicked)
 
         self.collectedInvoiceList = []
@@ -84,9 +98,7 @@ class page_collect:
         for url in l:
             if os.path.exists(url):
                 icon = QtGui.QIcon(url)
-                item = QtWidgets.QListWidgetItem(
-                    url, self.ListWidget
-                ) 
+                item = QtWidgets.QListWidgetItem(url, self.ListWidget)
                 item.setIcon(icon)
                 item.setStatusTip(url)
 

@@ -40,10 +40,11 @@ class page_ocrLibrary:
         return data
     
     def library_listWidget_currentItemChanged(self):
-        itemIndex=self.mainUI.library_listWidget.currentIndex().row()
-        data = self.getDataFromCSVFile(self.ocrDataList[itemIndex][2])
-        canvas = self.drawAnnotations(self.ocrDataList[itemIndex][1],data)
-        self.mainUI.gridLayout_21.addWidget(canvas, 1, 0, 1, 1)
+        if len(self.ocrDataList) != 0:
+            itemIndex=self.mainUI.library_listWidget.currentIndex().row()
+            data = self.getDataFromCSVFile(self.ocrDataList[itemIndex][2])
+            canvas = self.drawAnnotations(self.ocrDataList[itemIndex][1],data)
+            self.mainUI.gridLayout_21.addWidget(canvas, 1, 0, 1, 1)
 
     def getDataFromCSVFile(self,csv_file_name:str):
         csvfile =  open("csv data\\"+csv_file_name, "r")

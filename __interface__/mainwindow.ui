@@ -667,7 +667,15 @@ QProgressBar{
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(87, 84, 111);</string>
+          <string notr="true">#page_ocrLibrary, 
+#page_account,
+#page_collect,
+#page_dashboard,
+#page_extract,
+#page_settings,
+#page_training{
+	background-color: rgb(87, 84, 111);
+}</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -676,7 +684,7 @@ QProgressBar{
           <enum>QFrame::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>6</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page_dashboard">
           <layout class="QGridLayout" name="gridLayout_5">
@@ -686,6 +694,9 @@ QProgressBar{
               <font>
                <pointsize>28</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
              </property>
              <property name="text">
               <string>Dashboard</string>
@@ -699,6 +710,9 @@ QProgressBar{
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
              </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
@@ -1096,6 +1110,9 @@ QProgressBar{
                <pointsize>28</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+             </property>
              <property name="text">
               <string>Collect Invoices</string>
              </property>
@@ -1440,6 +1457,9 @@ QPushButton:hover{
                <pointsize>28</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+             </property>
              <property name="text">
               <string>Library</string>
              </property>
@@ -1454,7 +1474,9 @@ QPushButton:hover{
               </sizepolicy>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color: rgba(255, 255, 255, 150);</string>
+              <string notr="true">#frame_2{
+	background-color: rgba(255, 255, 255, 150);
+}</string>
              </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
@@ -1462,6 +1484,29 @@ QPushButton:hover{
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
+             <layout class="QGridLayout" name="gridLayout_22">
+              <item row="0" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+               <widget class="QLabel" name="label_11">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgba(255, 255, 255, 0);
+color: rgb(0, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string>There are no Previous 
+Recodes</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>

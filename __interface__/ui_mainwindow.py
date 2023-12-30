@@ -463,7 +463,15 @@ class Ui_MainWindow(object):
         self.stackedWidget.setSizePolicy(sizePolicy1)
         self.stackedWidget.setMinimumSize(QSize(979, 679))
         self.stackedWidget.setFont(font3)
-        self.stackedWidget.setStyleSheet(u"background-color: rgb(87, 84, 111);")
+        self.stackedWidget.setStyleSheet(u"#page_ocrLibrary, \n"
+"#page_account,\n"
+"#page_collect,\n"
+"#page_dashboard,\n"
+"#page_extract,\n"
+"#page_settings,\n"
+"#page_training{\n"
+"	background-color: rgb(87, 84, 111);\n"
+"}")
         self.stackedWidget.setFrameShape(QFrame.StyledPanel)
         self.stackedWidget.setFrameShadow(QFrame.Raised)
         self.page_dashboard = QWidget()
@@ -475,6 +483,7 @@ class Ui_MainWindow(object):
         font4 = QFont()
         font4.setPointSize(28)
         self.label_2.setFont(font4)
+        self.label_2.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
 
         self.gridLayout_5.addWidget(self.label_2, 0, 0, 1, 1)
 
@@ -482,6 +491,7 @@ class Ui_MainWindow(object):
         self.frame.setObjectName(u"frame")
         sizePolicy1.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
         self.frame.setSizePolicy(sizePolicy1)
+        self.frame.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout_6 = QGridLayout(self.frame)
@@ -735,6 +745,7 @@ class Ui_MainWindow(object):
         self.label_8 = QLabel(self.page_collect)
         self.label_8.setObjectName(u"label_8")
         self.label_8.setFont(font4)
+        self.label_8.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
 
         self.gridLayout_15.addWidget(self.label_8, 0, 0, 1, 1)
 
@@ -930,6 +941,7 @@ class Ui_MainWindow(object):
         sizePolicy4.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
         self.label_15.setSizePolicy(sizePolicy4)
         self.label_15.setFont(font4)
+        self.label_15.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
 
         self.gridLayout_21.addWidget(self.label_15, 0, 0, 1, 1, Qt.AlignHCenter)
 
@@ -940,9 +952,25 @@ class Ui_MainWindow(object):
         sizePolicy5.setVerticalStretch(10)
         sizePolicy5.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
         self.frame_2.setSizePolicy(sizePolicy5)
-        self.frame_2.setStyleSheet(u"background-color: rgba(255, 255, 255, 150);")
+        self.frame_2.setStyleSheet(u"#frame_2{\n"
+"	background-color: rgba(255, 255, 255, 150);\n"
+"}")
         self.frame_2.setFrameShape(QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Raised)
+        self.gridLayout_22 = QGridLayout(self.frame_2)
+        self.gridLayout_22.setObjectName(u"gridLayout_22")
+        self.label_11 = QLabel(self.frame_2)
+        self.label_11.setObjectName(u"label_11")
+        font11 = QFont()
+        font11.setPointSize(18)
+        font11.setBold(True)
+        self.label_11.setFont(font11)
+        self.label_11.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);\n"
+"color: rgb(0, 0, 0);")
+        self.label_11.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_22.addWidget(self.label_11, 0, 0, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
+
 
         self.gridLayout_21.addWidget(self.frame_2, 1, 0, 1, 1)
 
@@ -961,7 +989,7 @@ class Ui_MainWindow(object):
         self.image_preview_clearBtn.clicked.connect(self.lineEdit_invoNumber.clear)
 
         self.btn_dashboard.setDefault(False)
-        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget.setCurrentIndex(0)
         self.ocr_library_btn.setDefault(False)
 
 
@@ -1000,5 +1028,7 @@ class Ui_MainWindow(object):
         self.lineEdit_invoNumber.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Invoice Number", None))
         self.ocr_library_btn.setText(QCoreApplication.translate("MainWindow", u"Library", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Library", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"There are no Previous \n"
+"Recodes", None))
     # retranslateUi
 
