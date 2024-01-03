@@ -10,6 +10,7 @@ from CSVfile import CSVfile
 from PySide6.QtCore import QThread, Signal
 from database.database import Database
 from database.tbl_ocr_data import tbl_ocr_data
+import shutil
 
 
 class OCRThread(QThread):
@@ -24,6 +25,7 @@ class OCRThread(QThread):
 
     def run(self):
         try:
+            self.copyImageTolocalDir()
             self.invoiceUrlList = [url[0] for url in self.imageData_list]
             self.invoiceNumber = [no[1] for no in self.imageData_list]
             self.update_progress(20)
@@ -47,6 +49,13 @@ class OCRThread(QThread):
             self.ocr_completed.emit(formatedData)
         except Exception as e:
             print(f"Error in OCRThread: {str(e)}")
+
+    def copyImageTolocalDir(self):
+        newUrl = []
+        for image, invoNo in self.imageData_list:
+            shutil.copy(image, "invoices\\")
+            newUrl.append(["invoices/" + image.split("/")[-1], invoNo])
+        self.imageData_list = newUrl
 
     def update_progress(self, value):
         self.progress_updated.emit(value)

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.6.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -915,14 +915,26 @@ class Ui_MainWindow(object):
         self.page_ocrLibrary.setObjectName(u"page_ocrLibrary")
         self.gridLayout_21 = QGridLayout(self.page_ocrLibrary)
         self.gridLayout_21.setObjectName(u"gridLayout_21")
+        self.label_15 = QLabel(self.page_ocrLibrary)
+        self.label_15.setObjectName(u"label_15")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(1)
+        sizePolicy3.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
+        self.label_15.setSizePolicy(sizePolicy3)
+        self.label_15.setFont(font4)
+        self.label_15.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
+
+        self.gridLayout_21.addWidget(self.label_15, 0, 0, 1, 1, Qt.AlignHCenter)
+
         self.library_listWidget = QListWidget(self.page_ocrLibrary)
         self.library_listWidget.setObjectName(u"library_listWidget")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(2)
-        sizePolicy3.setHeightForWidth(self.library_listWidget.sizePolicy().hasHeightForWidth())
-        self.library_listWidget.setSizePolicy(sizePolicy3)
-        self.library_listWidget.setDragDropMode(QAbstractItemView.NoDragDrop)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(3)
+        sizePolicy4.setHeightForWidth(self.library_listWidget.sizePolicy().hasHeightForWidth())
+        self.library_listWidget.setSizePolicy(sizePolicy4)
+        self.library_listWidget.setDragDropMode(QAbstractItemView.DragDrop)
         self.library_listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
         self.library_listWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.library_listWidget.setIconSize(QSize(100, 100))
@@ -931,19 +943,7 @@ class Ui_MainWindow(object):
         self.library_listWidget.setViewMode(QListView.IconMode)
         self.library_listWidget.setItemAlignment(Qt.AlignCenter)
 
-        self.gridLayout_21.addWidget(self.library_listWidget, 2, 0, 1, 1)
-
-        self.label_15 = QLabel(self.page_ocrLibrary)
-        self.label_15.setObjectName(u"label_15")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(1)
-        sizePolicy4.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
-        self.label_15.setSizePolicy(sizePolicy4)
-        self.label_15.setFont(font4)
-        self.label_15.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
-
-        self.gridLayout_21.addWidget(self.label_15, 0, 0, 1, 1, Qt.AlignHCenter)
+        self.gridLayout_21.addWidget(self.library_listWidget, 3, 0, 1, 1)
 
         self.frame_2 = QFrame(self.page_ocrLibrary)
         self.frame_2.setObjectName(u"frame_2")
@@ -973,6 +973,20 @@ class Ui_MainWindow(object):
 
 
         self.gridLayout_21.addWidget(self.frame_2, 1, 0, 1, 1)
+
+        self.progressBar_drawAnnotation = QProgressBar(self.page_ocrLibrary)
+        self.progressBar_drawAnnotation.setObjectName(u"progressBar_drawAnnotation")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(1)
+        sizePolicy6.setHeightForWidth(self.progressBar_drawAnnotation.sizePolicy().hasHeightForWidth())
+        self.progressBar_drawAnnotation.setSizePolicy(sizePolicy6)
+        self.progressBar_drawAnnotation.setStyleSheet(u"background-color: rgb(87, 84, 111);\n"
+"")
+        self.progressBar_drawAnnotation.setValue(0)
+        self.progressBar_drawAnnotation.setTextVisible(False)
+
+        self.gridLayout_21.addWidget(self.progressBar_drawAnnotation, 2, 0, 1, 1)
 
         self.stackedWidget.addWidget(self.page_ocrLibrary)
 

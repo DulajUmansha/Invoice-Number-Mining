@@ -1,0 +1,26 @@
+from sentence_transformers import SentenceTransformer, util
+from CSVfile import CSVfile
+
+
+class Model:
+    def __init__(self) -> None:
+        self.wordSimilarityModel = SentenceTransformer("all-MiniLM-L6-v2")
+
+    def formatDataforTrain(self):
+        data = CSVfile.read()
+
+    def similarityValue(self, word2):
+        cosine_scores = []
+        for word1 in ["invoice","no","number"]:
+            embeddings1 = self.wordSimilarityModel.encode(word1, convert_to_tensor=True)
+            embeddings2 = self.wordSimilarityModel.encode(word2, convert_to_tensor=True)
+
+            cosine_scores.append(util.cos_sim(embeddings1, embeddings2))
+
+        return max(cosine_scores)
+
+    def model(self):
+        pass
+
+    def train(self):
+        pass

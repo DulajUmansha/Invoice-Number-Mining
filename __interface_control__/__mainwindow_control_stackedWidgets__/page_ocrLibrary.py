@@ -12,16 +12,17 @@ from keras_ocr import tools
 class page_ocrLibrary:
     def __init__(self, mainUI: Ui_MainWindow) -> None:
         self.mainUI = mainUI
-        self.db = Database()
         self.ocrDataList = []
-        self.addimages()
-        self.library_listWidget_currentItemChanged()
         self.mainUI.library_listWidget.currentItemChanged.connect(self.library_listWidget_currentItemChanged)
 
     def stackedBtn_clicked(self):
         self.mainUI.stackedWidget.setCurrentIndex(6)
+        self.addimages()
+        self.library_listWidget_currentItemChanged()
 
     def addimages(self):
+        self.mainUI.library_listWidget.clear()
+        self.db = Database()
         data = self.getOCRImageData()
         file_paths = [item['file_path'] for item in data]
         invo_numbers = [item['invo_no'] for item in data]
@@ -44,7 +45,9 @@ class page_ocrLibrary:
             itemIndex=self.mainUI.library_listWidget.currentIndex().row()
             data = self.getDataFromCSVFile(self.ocrDataList[itemIndex][2])
             canvas = self.drawAnnotations(self.ocrDataList[itemIndex][1],data)
+            self.mainUI.progressBar_drawAnnotation.setValue(100)
             self.mainUI.gridLayout_21.addWidget(canvas, 1, 0, 1, 1)
+            self.mainUI.progressBar_drawAnnotation.setValue(0)
 
     def getDataFromCSVFile(self,csv_file_name:str):
         csvfile =  open("csv data\\"+csv_file_name, "r")
@@ -62,6 +65,7 @@ class page_ocrLibrary:
         return result_list
 
     def drawAnnotations(self,file_path:str, csvData:list):
+        self.mainUI.progressBar_drawAnnotation.setValue(25)
         images = [tools.read(file_path)]
         fig, ax = plt.subplots(figsize=(20, 20))
 
@@ -70,10 +74,12 @@ class page_ocrLibrary:
                 tools.drawAnnotations(
                     image=image, predictions=predictions, ax=ax
                 )
+                self.mainUI.progressBar_drawAnnotation.setValue(50)
         except Exception as e:
             print(f"Error: {e}")
             
         plt.rcParams.update({'font.size': 12})
+        self.mainUI.progressBar_drawAnnotation.setValue(75)
         canvas = FigureCanvas(fig)
         canvas.figure.set_facecolor('#FFFFFF96')
 

@@ -41,3 +41,9 @@ class CSVfile:
         file_name = file_name.replace("-", "").replace(":", "")
 
         return file_name
+    
+    def read(self, csv_file_name):
+        csvfile =  open("csv data\\"+csv_file_name, "r")
+        csvreader = csv.DictReader(csvfile)
+
+        return csvreader
