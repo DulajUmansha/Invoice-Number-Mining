@@ -52,11 +52,11 @@ class tbl_ocr_data(Table):
 		self.set_tableName(self.tableName)
 		return super().retriveData()
 
-	def insertData(self, table=None, *args, **data) -> bool:
+	def insertData(self, table=None,db = None, *args, **data) -> bool:
 		self.set_tableName(self.tableName)
 		data = {'id':self.id,'invo_no':self.invo_no,'csv_file_name':self.csv_file_name,'file_path':self.file_path,'date_time':self.date_time,'status':self.status}
 		data = {k: v for k, v in data.items() if v is not None}
-		return super().insertData(table, *args, **data)
+		return super().insertData(table, db=db, *args, **data)
 
 	def updateData(self, table=None, where=None, *args, **data) -> bool:
 		self.set_tableName(self.tableName)

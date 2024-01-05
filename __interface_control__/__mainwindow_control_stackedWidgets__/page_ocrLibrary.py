@@ -10,8 +10,9 @@ from keras_ocr import tools
 
 
 class page_ocrLibrary:
-    def __init__(self, mainUI: Ui_MainWindow) -> None:
+    def __init__(self, mainUI: Ui_MainWindow, db:Database) -> None:
         self.mainUI = mainUI
+        self.db = db
         self.ocrDataList = []
         self.mainUI.library_listWidget.currentItemChanged.connect(self.library_listWidget_currentItemChanged)
 
@@ -22,7 +23,7 @@ class page_ocrLibrary:
 
     def addimages(self):
         self.mainUI.library_listWidget.clear()
-        self.db = Database()
+        # self.db = Database("qt_sql_library_connection")
         data = self.getOCRImageData()
         file_paths = [item['file_path'] for item in data]
         invo_numbers = [item['invo_no'] for item in data]
@@ -64,23 +65,28 @@ class page_ocrLibrary:
             result_list.append((ocr_data, coordinates))
         return result_list
 
-    def drawAnnotations(self,file_path:str, csvData:list):
+    def drawAnnotations(self, file_path: str, csvData: list):
         self.mainUI.progressBar_drawAnnotation.setValue(25)
         images = [tools.read(file_path)]
-        fig, ax = plt.subplots(figsize=(20, 20))
+
+        if hasattr(self, 'fig') and self.fig:
+            plt.close(self.fig)
+
+        self.fig, self.ax = plt.subplots()
+        # Clear the previous annotations
+        self.ax.clear()
 
         try:
             for image, predictions in zip(images, [csvData]):
                 tools.drawAnnotations(
-                    image=image, predictions=predictions, ax=ax
+                    image=image, predictions=predictions, ax=self.ax
                 )
                 self.mainUI.progressBar_drawAnnotation.setValue(50)
         except Exception as e:
             print(f"Error: {e}")
-            
-        plt.rcParams.update({'font.size': 12})
+        
         self.mainUI.progressBar_drawAnnotation.setValue(75)
-        canvas = FigureCanvas(fig)
+        canvas = FigureCanvas(self.fig)
         canvas.figure.set_facecolor('#FFFFFF96')
 
         return canvas

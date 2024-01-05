@@ -2,12 +2,18 @@ from PySide6.QtSql import QSqlDatabase
 
 
 class Database:
-    def __init__(self,connection_name = 'qt_sql_default_connection') -> None:
+    def __init__(self, connection_name="qt_sql_default_connection") -> None:
         self.db_host_name = "127.0.0.1"
         self.db_name = "invoice_number_mining"
         self.db_user_name = "root"
         self.db_password = ""
         self.db = QSqlDatabase.addDatabase("QMYSQL", connection_name)
+
+    def get_db(self):
+        return self.db
+
+    def set_db(self, value):
+        self.db = value
 
     def get_db_host_name(self) -> str:
         return self.db_host_name
@@ -42,6 +48,3 @@ class Database:
 
     def close(self):
         self.db.close()
-
-    def removeDatabase(self, connectionName):
-        self.db.removeDatabase(connectionName)

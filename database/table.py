@@ -38,7 +38,7 @@ class Table:
     def createTable(self) -> bool:
         pass
 
-    def insertData(self, table=None, *args, **kwargs) -> bool:
+    def insertData(self, table=None, db = None, *args, **kwargs) -> bool:
         values = None
         if not table:
             table = self.tableName
@@ -56,7 +56,7 @@ class Table:
         elif args:
             values = args
             query += " VALUES(" + ",".join(["%s"] * len(values)) + ")"
-        Qquery = QSqlQuery()
+        Qquery = QSqlQuery(db)
         return Qquery.exec(query)
 
     def retriveData(self, table=None, *args, **kwargs):

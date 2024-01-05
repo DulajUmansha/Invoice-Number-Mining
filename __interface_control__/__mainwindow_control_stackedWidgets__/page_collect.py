@@ -22,6 +22,8 @@ class OCRThread(QThread):
         self.imageData_list = imageData_list
         self.ocr = OCR()
         self.csvFile = CSVfile()
+        self.db = Database("qt_sql_ocrThread_connection")
+        self.tblOCRData = tbl_ocr_data()
 
     def run(self):
         try:
@@ -61,27 +63,25 @@ class OCRThread(QThread):
         self.progress_updated.emit(value)
 
     def update_database(self, formatedData):
-        db = Database()
         try:
-            db.connect()
-            tblOCRData = tbl_ocr_data()
-
+            self.db.connect()
+        
             for datum in formatedData:
-                tblOCRData.set_invo_no(datum[0])
-                tblOCRData.set_file_path(datum[-2])
-                tblOCRData.set_csv_file_name(datum[-1])
-                tblOCRData.insertData()
+                self.tblOCRData.set_invo_no(datum[0])
+                self.tblOCRData.set_file_path(datum[-2])
+                self.tblOCRData.set_csv_file_name(datum[-1])
+                self.tblOCRData.insertData(db=self.db.get_db())
 
         except Exception as e:
             print(f"Error updating database: {str(e)}")
         finally:
-            db.close()
+            self.db.close()
 
 
 class page_collect:
-    def __init__(self, mainUI: Ui_MainWindow) -> None:
+    def __init__(self, mainUI: Ui_MainWindow, db:Database) -> None:
         self.mainUI = mainUI
-        self.ocrLibrary = page_ocrLibrary(self.mainUI)
+        self.ocrLibrary = page_ocrLibrary(self.mainUI, db)
 
         self.ListWidget = dragAndDropListWidget()
         self.ListWidget.setSelectionMode(QAbstractItemView.NoSelection)
