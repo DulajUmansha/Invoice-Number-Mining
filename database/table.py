@@ -38,7 +38,7 @@ class Table:
     def createTable(self) -> bool:
         pass
 
-    def insertData(self, table=None, db = None, *args, **kwargs) -> bool:
+    def insertData(self, table=None, db=None, *args, **kwargs) -> bool:
         values = None
         if not table:
             table = self.tableName
@@ -90,14 +90,16 @@ class Table:
             query += " WHERE `{}` = '{}'".format(
                 self.conditionColumnName, self.conditionColumnData
             )
+            query += " AND `status` = 'active'"
 
         elif self.conditionColumnName and self.conditionColumnData:
             query += " WHERE `{}` = '{}'".format(
                 self.conditionColumnName, self.conditionColumnData
             )
+            query += " AND `status` = 'active'"
 
         else:
-            pass
+            query += " WHERE `status` = 'active'"
 
         query = QSqlQuery(query)
 
@@ -138,5 +140,6 @@ class Table:
         query += " WHERE `{}` = '{}'".format(
             self.conditionColumnName, self.conditionColumnData
         )
+        print(query)
         Qquery = QSqlQuery()
         return Qquery.exec(query)

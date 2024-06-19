@@ -16,10 +16,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFormLayout, QFrame,
-    QGridLayout, QHBoxLayout, QLabel, QLineEdit,
-    QListView, QListWidget, QListWidgetItem, QMainWindow,
-    QProgressBar, QPushButton, QSizePolicy, QSpacerItem,
-    QStackedWidget, QVBoxLayout, QWidget)
+    QGridLayout, QHBoxLayout, QHeaderView, QLabel,
+    QLineEdit, QListView, QListWidget, QListWidgetItem,
+    QMainWindow, QProgressBar, QPushButton, QSizePolicy,
+    QSpacerItem, QStackedWidget, QTableView, QVBoxLayout,
+    QWidget)
 # import rc_resource
 
 class Ui_MainWindow(object):
@@ -229,7 +230,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "\n"
-"QHeaderView::section,QTableCornerButton:section\n"
+"QHeaderView::section,QTableCornerButton::section\n"
 "{\n"
 "	font-size:18px;\n"
 "    text-align:center;\n"
@@ -775,17 +776,17 @@ class Ui_MainWindow(object):
         self.verticalLayout_5 = QVBoxLayout()
         self.verticalLayout_5.setSpacing(0)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.invoDataCollectBtn = QPushButton(self.page_collect)
-        self.invoDataCollectBtn.setObjectName(u"invoDataCollectBtn")
-        self.invoDataCollectBtn.setStyleSheet(u"QPushButton:hover{\n"
+        self.ocrBtn = QPushButton(self.page_collect)
+        self.ocrBtn.setObjectName(u"ocrBtn")
+        self.ocrBtn.setStyleSheet(u"QPushButton:hover{\n"
 "	background-color: rgb(0, 0, 0);\n"
 "}")
         icon7 = QIcon()
         icon7.addFile(u":/icon/resource/icon/right-arrow.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.invoDataCollectBtn.setIcon(icon7)
-        self.invoDataCollectBtn.setIconSize(QSize(50, 50))
+        self.ocrBtn.setIcon(icon7)
+        self.ocrBtn.setIconSize(QSize(50, 50))
 
-        self.verticalLayout_5.addWidget(self.invoDataCollectBtn)
+        self.verticalLayout_5.addWidget(self.ocrBtn)
 
         self.image_preview_clearBtn = QPushButton(self.page_collect)
         self.image_preview_clearBtn.setObjectName(u"image_preview_clearBtn")
@@ -807,26 +808,20 @@ class Ui_MainWindow(object):
         self.verticalLayout_7 = QVBoxLayout()
         self.verticalLayout_7.setSpacing(15)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.listWidget__image_preview = QListWidget(self.page_collect)
-        self.listWidget__image_preview.setObjectName(u"listWidget__image_preview")
-        sizePolicy2.setHeightForWidth(self.listWidget__image_preview.sizePolicy().hasHeightForWidth())
-        self.listWidget__image_preview.setSizePolicy(sizePolicy2)
-        font10 = QFont()
-        font10.setPointSize(12)
-        self.listWidget__image_preview.setFont(font10)
-        self.listWidget__image_preview.setAutoFillBackground(False)
-        self.listWidget__image_preview.setStyleSheet(u"background-color: rgb(66, 66, 66);")
-        self.listWidget__image_preview.setLineWidth(1)
-        self.listWidget__image_preview.setMidLineWidth(10)
-        self.listWidget__image_preview.setDragDropMode(QAbstractItemView.DragDrop)
-        self.listWidget__image_preview.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.listWidget__image_preview.setIconSize(QSize(100, 100))
-        self.listWidget__image_preview.setResizeMode(QListView.Adjust)
-        self.listWidget__image_preview.setSpacing(20)
-        self.listWidget__image_preview.setViewMode(QListView.IconMode)
-        self.listWidget__image_preview.setItemAlignment(Qt.AlignAbsolute|Qt.AlignCenter|Qt.AlignHCenter|Qt.AlignVCenter)
+        self.tableView__image_data = QTableView(self.page_collect)
+        self.tableView__image_data.setObjectName(u"tableView__image_data")
+        sizePolicy2.setHeightForWidth(self.tableView__image_data.sizePolicy().hasHeightForWidth())
+        self.tableView__image_data.setSizePolicy(sizePolicy2)
+        self.tableView__image_data.setFont(font9)
+        self.tableView__image_data.setAutoFillBackground(False)
+        self.tableView__image_data.setStyleSheet(u"")
+        self.tableView__image_data.setLineWidth(1)
+        self.tableView__image_data.setMidLineWidth(10)
+        self.tableView__image_data.setDragDropMode(QAbstractItemView.DragDrop)
+        self.tableView__image_data.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tableView__image_data.setIconSize(QSize(100, 100))
 
-        self.verticalLayout_7.addWidget(self.listWidget__image_preview)
+        self.verticalLayout_7.addWidget(self.tableView__image_data)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setSpacing(30)
@@ -874,6 +869,8 @@ class Ui_MainWindow(object):
         self.lineEdit_invoNumber = QLineEdit(self.page_collect)
         self.lineEdit_invoNumber.setObjectName(u"lineEdit_invoNumber")
         self.lineEdit_invoNumber.setMinimumSize(QSize(300, 40))
+        font10 = QFont()
+        font10.setPointSize(12)
         self.lineEdit_invoNumber.setFont(font10)
         self.lineEdit_invoNumber.setStyleSheet(u"background-color: rgb(54, 54, 54);\n"
 "color: rgb(255, 255, 255);")
@@ -998,12 +995,15 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.image_preview_list_clearAllBtn.clicked["bool"].connect(self.listWidget__image_preview.clear)
-        self.lineEdit_invoNumber.returnPressed.connect(self.invoDataCollectBtn.click)
+        self.lineEdit_invoNumber.returnPressed.connect(self.ocrBtn.click)
         self.image_preview_clearBtn.clicked.connect(self.lineEdit_invoNumber.clear)
+        self.image_preview_list_clearAllBtn.clicked["bool"].connect(self.image_preview_clearBtn.click)
+        self.image_preview_list_clearAllBtn.clicked.connect(self.ocrBtn.click)
+        self.invoDataSubmitBtn.clicked["bool"].connect(self.tableView__image_data.reset)
+        self.image_preview_list_clearAllBtn.clicked["bool"].connect(self.tableView__image_data.reset)
 
         self.btn_dashboard.setDefault(False)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(3)
         self.ocr_library_btn.setDefault(False)
 
 
@@ -1035,7 +1035,7 @@ class Ui_MainWindow(object):
         self.greetings.setText(QCoreApplication.translate("MainWindow", u"Good Morning", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Collect Invoices", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Drag & Drop", None))
-        self.invoDataCollectBtn.setText("")
+        self.ocrBtn.setText("")
         self.image_preview_clearBtn.setText("")
         self.image_preview_list_clearAllBtn.setText(QCoreApplication.translate("MainWindow", u"  Clear All  ", None))
         self.invoDataSubmitBtn.setText(QCoreApplication.translate("MainWindow", u"  Submit  ", None))

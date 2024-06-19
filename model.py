@@ -1,33 +1,21 @@
-from sentence_transformers import SentenceTransformer, util
-from CSVfile import CSVfile
-from database.database import Database
-from database.tbl_ocr_data import tbl_ocr_data
-
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, LSTM, Input, TimeDistributed, Flatten
+from tensorflow.keras import layers, models
 
 class Model:
-    def __init__(self) -> None:
-        self.wordSimilarityModel = SentenceTransformer("all-MiniLM-L6-v2")
-        self.db = Database()
-        self.tblOCRData = tbl_ocr_data()
+  def __init__(self) -> None:
+      pass
 
-    def formatDataforTrain(self):
-        self.db.connect()
-        files = self.tblOCRData.retriveData()
-        data = CSVfile.read()
-        self.db.close()
+  def __call__(self, input_shape):
+        self.model = Sequential()
+        self.model.add(Input(shape=input_shape))  # Input layer
+        self.model.add(TimeDistributed(LSTM(64, activation='relu', return_sequences=True)))  # TimeDistributed LSTM layer
+        self.model.add(TimeDistributed(LSTM(32, activation='elu')))  # Additional TimeDistributed LSTM layer
+        self.model.add(Flatten())  # Flatten the output for dense layers
+        self.model.add(Dense(1, activation='linear'))  # Output layer with linear activation since it's a regression problem
 
-    def similarityValue(self, word2):
-        cosine_scores = []
-        for word1 in ["invoice","no","number"]:
-            embeddings1 = self.wordSimilarityModel.encode(word1, convert_to_tensor=True)
-            embeddings2 = self.wordSimilarityModel.encode(word2, convert_to_tensor=True)
+        return self.model
 
-            cosine_scores.append(util.cos_sim(embeddings1, embeddings2))
-
-        return max(cosine_scores)
-
-    def model(self):
-        pass
-
-    def train(self):
-        pass
+  def train(self, x_train, y_train):
+    self.model.fit(x_train, y_train, epochs=10, batch_size=9)

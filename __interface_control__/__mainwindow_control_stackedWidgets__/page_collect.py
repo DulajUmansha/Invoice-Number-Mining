@@ -4,101 +4,60 @@ from __interface_control__.__mainwindow_control_stackedWidgets__.page_ocrLibrary
 )
 from __interface_control__.dragAndDropListWidget import *
 from PySide6.QtWidgets import QAbstractItemView
-import os, time
+import os
 from OCR import OCR
-from CSVfile import CSVfile
-from PySide6.QtCore import QThread, Signal
+from PySide6.QtCore import QThread, Signal, QObject
+from __interface_control__.tableModel import TableModel
 from database.database import Database
 from database.tbl_ocr_data import tbl_ocr_data
 import shutil
+from format import FormatData
 
 
 class OCRThread(QThread):
-    ocr_completed = Signal(object)
     progress_updated = Signal(int)
+    finished = Signal(list)
 
-    def __init__(self, imageData_list):
+    def __init__(self,imageData_list):
         super().__init__()
         self.imageData_list = imageData_list
         self.ocr = OCR()
-        self.csvFile = CSVfile()
-        self.db = Database("qt_sql_ocrThread_connection")
-        self.tblOCRData = tbl_ocr_data()
+        self.formatData = FormatData()
 
     def run(self):
         try:
-            self.copyImageTolocalDir()
-            self.invoiceUrlList = [url[0] for url in self.imageData_list]
+            self.filePaths = [url[0] for url in self.imageData_list]
             self.invoiceNumber = [no[1] for no in self.imageData_list]
             self.update_progress(20)
 
-            fileNames = [
-                self.csvFile.generateFileName()
-                for url in self.imageData_list
-                if time.sleep(0.2) is None
-            ]
-
-            data = self.ocr.read(self.invoiceUrlList)
+            data = self.ocr.read(self.filePaths[0])
             self.update_progress(70)
 
-            formatedData = self.csvFile.formatData(
-                self.invoiceNumber, data, self.invoiceUrlList, fileNames
-            )
-            self.csvFile.write(formatedData)
+            formated_ocrData:list = self.formatData.format(data, self.invoiceNumber[0])
+            formated_ocrData.append(self.filePaths[0])
+            self.finished.emit(formated_ocrData)
 
-            self.update_database(formatedData)
-            self.update_progress(100)
-            self.ocr_completed.emit(formatedData)
         except Exception as e:
             print(f"Error in OCRThread: {str(e)}")
-
-    def copyImageTolocalDir(self):
-        newUrl = []
-        for image, invoNo in self.imageData_list:
-            shutil.copy(image, "invoices\\")
-            newUrl.append(["invoices/" + image.split("/")[-1], invoNo])
-        self.imageData_list = newUrl
 
     def update_progress(self, value):
         self.progress_updated.emit(value)
 
-    def update_database(self, formatedData):
-        try:
-            self.db.connect()
-        
-            for datum in formatedData:
-                self.tblOCRData.set_invo_no(datum[0])
-                self.tblOCRData.set_file_path(datum[-2])
-                self.tblOCRData.set_csv_file_name(datum[-1])
-                self.tblOCRData.insertData(db=self.db.get_db())
-
-        except Exception as e:
-            print(f"Error updating database: {str(e)}")
-        finally:
-            self.db.close()
-
 
 class page_collect:
-    def __init__(self, mainUI: Ui_MainWindow, db:Database) -> None:
+    def __init__(self, mainUI: Ui_MainWindow, db: Database) -> None:
         self.mainUI = mainUI
+        self.db = db
         self.ocrLibrary = page_ocrLibrary(self.mainUI, db)
+        self.tblOCRData = tbl_ocr_data()
 
         self.ListWidget = dragAndDropListWidget()
         self.ListWidget.setSelectionMode(QAbstractItemView.NoSelection)
         self.mainUI.gridLayout_15.addWidget(self.ListWidget, 1, 0, 1, 1)
 
         self.ListWidget.fileDropped.connect(self.pictureDropped)
-        self.mainUI.invoDataCollectBtn.clicked.connect(self.invoDataCollectBtn_clicked)
-        self.mainUI.invoDataSubmitBtn.clicked.connect(self.invoDataSubmitBtn_clicked)
-        self.mainUI.image_preview_clearBtn.clicked.connect(
-            self.image_preview_clearBtn_clicked
-        )
-        self.mainUI.image_preview_list_clearAllBtn.clicked.connect(
-            self.image_preview_list_clearAllBtn_clicked
-        )
         self.mainUI.ocr_library_btn.clicked.connect(self.ocrLibrary.stackedBtn_clicked)
-
-        self.collectedInvoiceList = []
+        self.mainUI.ocrBtn.clicked.connect(self.ocrBtn_clicked_connect)
 
     def stackedBtn_clicked(self):
         self.mainUI.stackedWidget.setCurrentIndex(3)
@@ -111,37 +70,52 @@ class page_collect:
                 item.setIcon(icon)
                 item.setStatusTip(url)
 
-    def invoDataCollectBtn_clicked(self):
-        invoNo = self.mainUI.lineEdit_invoNumber.text()
+    def ocrBtn_clicked_connect(self):
         url = self.ListWidget.getItem()
-        if invoNo and url:
-            item = QtWidgets.QListWidgetItem(
-                invoNo, self.mainUI.listWidget__image_preview
-            )
-            item.setIcon(QtGui.QIcon(url))
-            self.collectedInvoiceList.append([url, invoNo])
-            self.ListWidget.clearList()
-            self.mainUI.lineEdit_invoNumber.clear()
+        invoNo = self.mainUI.lineEdit_invoNumber.text()
 
-    def invoDataSubmitBtn_clicked(self):
-        self.mainUI.page_collect.setDisabled(True)
-        self.ocr_thread = OCRThread(self.collectedInvoiceList)
-        # self.ocr_thread.ocr_completed.connect(self.ocr_completed)
-        self.ocr_thread.progress_updated.connect(self.update_progress_bar)
-        self.ocr_thread.start()
+        self.worker_thread = OCRThread([[url,invoNo]])
+        self.worker_thread.progress_updated.connect(self.update_progress_bar)
+        self.worker_thread.finished.connect(self.finishedOCR)
+        self.worker_thread.start()
 
     def update_progress_bar(self, value):
         self.mainUI.progressBar_collcet.setValue(value)
-        if value == 100:
-            time.sleep(1)
-            self.mainUI.progressBar_collcet.setValue(0)
-            self.mainUI.page_collect.setEnabled(True)
+    
+    def finishedOCR(self,formated_data):
+        self.mainUI.progressBar_collcet.setValue(0)
+        self.mainUI.page_collect.setEnabled(True)
 
-    def task_completed(self):
-        self.mainUI.progressBar_collcet.setValue(100)
+        self.model = TableModel(formated_data[0])
+        self.mainUI.tableView__image_data.setModel(self.model)
+        self.mainUI.invoDataSubmitBtn.clicked.connect(lambda:self.invoDataSubmitBtn_clicked_connect(formated_data))
 
-    def image_preview_clearBtn_clicked(self):
-        self.ListWidget.clearList()
+    def invoDataSubmitBtn_clicked_connect(self,formated_data):
+        img_fileName = formated_data[2].split("/")[-1]
+        if "ocr_similarityValue" in formated_data[0].columns:
+            formated_data[0].to_csv("csv data/" + str(formated_data[1])+".csv", index=False)
+            self.copyImageTolocalDir(formated_data[2])
+        else:
+            print(
+                img_fileName, "could not find invoice number amoung ocr Data"
+            )
+        dbData = [formated_data[1],img_fileName,formated_data[1]+"csv"]
+        self.update_database(dbData)
 
-    def image_preview_list_clearAllBtn_clicked(self):
-        self.collectedInvoiceList.clear()
+    def copyImageTolocalDir(self,img_filePath):
+            shutil.copy(img_filePath, "invoices\\")
+
+    def update_database(self, formatedData):
+        try:
+            self.db.connect()
+
+            for datum in formatedData:
+                self.tblOCRData.set_invo_no(datum[0])
+                self.tblOCRData.set_file_path(datum[-2])
+                self.tblOCRData.set_csv_file_name(datum[-1])
+                self.tblOCRData.insertData(db=self.db.get_db())
+
+        except Exception as e:
+            print(f"Error updating database: {str(e)}")
+        finally:
+            self.db.close()

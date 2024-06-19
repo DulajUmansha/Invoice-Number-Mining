@@ -14,7 +14,7 @@ class Database:
 
     def set_db(self, value):
         self.db = value
-
+        
     def get_db_host_name(self) -> str:
         return self.db_host_name
 
@@ -48,3 +48,4 @@ class Database:
 
     def close(self):
         self.db.close()
+

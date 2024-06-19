@@ -20,7 +20,7 @@ class MainWindow(QMainWindow, QWidget):
         self.dashboard = page_dashboard(self.mainUI)
         self.account = page_account(self.mainUI)
         self.extract = page_extract(self.mainUI)
-        self.training = page_training(self.mainUI)
+        self.training = page_training(self.mainUI,self.db)
         self.collect = page_collect(self.mainUI,self.db)
         self.setting = page_settings(self.mainUI)
 

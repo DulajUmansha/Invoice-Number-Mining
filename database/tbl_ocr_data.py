@@ -1,63 +1,84 @@
-
 from database.table import Table
 
+
 class tbl_ocr_data(Table):
-	def __init__(self) -> None:
-		super(tbl_ocr_data,self).__init__()
-		self.tableName = 'tbl_ocr_data' #self.__class__.__name__
-		self.id = None
-		self.invo_no = None
-		self.csv_file_name = None
-		self.file_path = None
-		self.date_time = None
-		self.status = None
-		
-	def get_id(self):
-		return self.id
+    def __init__(self) -> None:
+        super(tbl_ocr_data, self).__init__()
+        self.tableName = "tbl_ocr_data"  # self.__class__.__name__
+        self.id = None
+        self.invo_no = None
+        self.csv_file_name = None
+        self.file_path = None
+        self.date_time = None
+        self.status = None
 
-	def set_id(self,value):
-		self.id = value
+    def __iter__(self):
+        if self.id:
+            yield "id", self.id
+        if self.invo_no:
+            yield "invo_no", self.invo_no
+        if self.csv_file_name:
+            yield "csv_file_name", self.csv_file_name
+        if self.file_path:
+            yield "file_path", self.file_path
+        if self.date_time:
+            yield "date_time", self.date_time
+        if self.status:
+            yield "status", self.status
 
-	def get_invo_no(self):
-		return self.invo_no
+    def get_id(self):
+        return self.id
 
-	def set_invo_no(self,value):
-		self.invo_no = value
+    def set_id(self, value):
+        self.id = value
 
-	def get_csv_file_name(self):
-		return self.csv_file_name
+    def get_invo_no(self):
+        return self.invo_no
 
-	def set_csv_file_name(self,value):
-		self.csv_file_name = value
+    def set_invo_no(self, value):
+        self.invo_no = value
 
-	def get_file_path(self):
-		return self.file_path
+    def get_csv_file_name(self):
+        return self.csv_file_name
 
-	def set_file_path(self,value):
-		self.file_path = value
+    def set_csv_file_name(self, value):
+        self.csv_file_name = value
 
-	def get_date_time(self):
-		return self.date_time
+    def get_file_path(self):
+        return self.file_path
 
-	def set_date_time(self,value):
-		self.date_time = value
+    def set_file_path(self, value):
+        self.file_path = value
 
-	def get_status(self):
-		return self.status
+    def get_date_time(self):
+        return self.date_time
 
-	def set_status(self,value):
-		self.status = value
+    def set_date_time(self, value):
+        self.date_time = value
 
-	def retriveData(self):
-		self.set_tableName(self.tableName)
-		return super().retriveData()
+    def get_status(self):
+        return self.status
 
-	def insertData(self, table=None,db = None, *args, **data) -> bool:
-		self.set_tableName(self.tableName)
-		data = {'id':self.id,'invo_no':self.invo_no,'csv_file_name':self.csv_file_name,'file_path':self.file_path,'date_time':self.date_time,'status':self.status}
-		data = {k: v for k, v in data.items() if v is not None}
-		return super().insertData(table, db=db, *args, **data)
+    def set_status(self, value):
+        self.status = value
 
-	def updateData(self, table=None, where=None, *args, **data) -> bool:
-		self.set_tableName(self.tableName)
-		return super().updateData(table, where, *args, **data)
+    def retriveData(self):
+        self.set_tableName(self.tableName)
+        return super().retriveData()
+
+    def insertData(self, table=None, db=None, *args, **data) -> bool:
+        self.set_tableName(self.tableName)
+        data = {
+            "id": self.id,
+            "invo_no": self.invo_no,
+            "csv_file_name": self.csv_file_name,
+            "file_path": self.file_path,
+            "date_time": self.date_time,
+            "status": self.status,
+        }
+        data = {k: v for k, v in data.items() if v is not None}
+        return super().insertData(table, db=db, *args, **data)
+
+    def updateData(self, table=None, where=None, *args, **data) -> bool:
+        self.set_tableName(self.tableName)
+        return super().updateData(table, where, *args, **data)

@@ -213,7 +213,7 @@ QHeaderView{
 }
 
 
-QHeaderView::section,QTableCornerButton:section
+QHeaderView::section,QTableCornerButton::section
 {
 	font-size:18px;
     text-align:center;
@@ -684,7 +684,7 @@ QProgressBar{
           <enum>QFrame::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="page_dashboard">
           <layout class="QGridLayout" name="gridLayout_5">
@@ -1094,7 +1094,68 @@ QProgressBar{
           </layout>
          </widget>
          <widget class="QWidget" name="page_extract"/>
-         <widget class="QWidget" name="page_training"/>
+         <widget class="QWidget" name="page_training">
+          <layout class="QGridLayout" name="gridLayout_23">
+           <item row="0" column="0" alignment="Qt::AlignHCenter|Qt::AlignTop">
+            <widget class="QLabel" name="label_16">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>20</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Train</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QFrame" name="frame_13">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>3</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" alignment="Qt::AlignHCenter">
+            <widget class="QPushButton" name="startTrainBtn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>3</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QTextEdit" name="textEdit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>5</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="page_collect">
           <property name="enabled">
            <bool>true</bool>
@@ -1157,7 +1218,7 @@ QProgressBar{
               <number>0</number>
              </property>
              <item>
-              <widget class="QPushButton" name="invoDataCollectBtn">
+              <widget class="QPushButton" name="ocrBtn">
                <property name="styleSheet">
                 <string notr="true">QPushButton:hover{
 	background-color: rgb(0, 0, 0);
@@ -1213,7 +1274,7 @@ QProgressBar{
               <number>15</number>
              </property>
              <item>
-              <widget class="QListWidget" name="listWidget__image_preview">
+              <widget class="QTableView" name="tableView__image_data">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
                  <horstretch>0</horstretch>
@@ -1222,14 +1283,14 @@ QProgressBar{
                </property>
                <property name="font">
                 <font>
-                 <pointsize>12</pointsize>
+                 <pointsize>-1</pointsize>
                 </font>
                </property>
                <property name="autoFillBackground">
                 <bool>false</bool>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(66, 66, 66);</string>
+                <string notr="true"/>
                </property>
                <property name="lineWidth">
                 <number>1</number>
@@ -1248,18 +1309,6 @@ QProgressBar{
                  <width>100</width>
                  <height>100</height>
                 </size>
-               </property>
-               <property name="resizeMode">
-                <enum>QListView::Adjust</enum>
-               </property>
-               <property name="spacing">
-                <number>20</number>
-               </property>
-               <property name="viewMode">
-                <enum>QListView::IconMode</enum>
-               </property>
-               <property name="itemAlignment">
-                <set>Qt::AlignAbsolute|Qt::AlignCenter|Qt::AlignHCenter|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -1544,25 +1593,9 @@ Recodes</string>
  </resources>
  <connections>
   <connection>
-   <sender>image_preview_list_clearAllBtn</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>listWidget__image_preview</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>786</x>
-     <y>583</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>812</x>
-     <y>527</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>lineEdit_invoNumber</sender>
    <signal>returnPressed()</signal>
-   <receiver>invoDataCollectBtn</receiver>
+   <receiver>ocrBtn</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1588,6 +1621,70 @@ Recodes</string>
     <hint type="destinationlabel">
      <x>586</x>
      <y>595</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>image_preview_list_clearAllBtn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>image_preview_clearBtn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>762</x>
+     <y>593</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>703</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>image_preview_list_clearAllBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>ocrBtn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>763</x>
+     <y>605</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>720</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>invoDataSubmitBtn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>tableView__image_data</receiver>
+   <slot>reset()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>992</x>
+     <y>606</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>959</x>
+     <y>534</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>image_preview_list_clearAllBtn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>tableView__image_data</receiver>
+   <slot>reset()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>868</x>
+     <y>610</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>865</x>
+     <y>534</y>
     </hint>
    </hints>
   </connection>
