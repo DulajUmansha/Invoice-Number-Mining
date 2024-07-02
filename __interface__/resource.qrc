@@ -12,5 +12,10 @@
         <file>resource/icon/chevron-right.svg</file>
         <file>resource/icon/clear.png</file>
         <file>resource/icon/delete.png</file>
+        <file>resource/icon/search-alt.png</file>
+        <file>resource/icon/document-circle-wrong.png</file>
+        <file>resource/icon/assept-document.png</file>
+        <file>resource/icon/time-past.png</file>
+        <file>resource/icon/angle-small-left.png</file>
     </qresource>
 </RCC>

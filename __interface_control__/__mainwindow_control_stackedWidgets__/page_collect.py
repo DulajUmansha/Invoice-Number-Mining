@@ -91,17 +91,17 @@ class page_collect:
         self.mainUI.invoDataSubmitBtn.clicked.connect(lambda:self.invoDataSubmitBtn_clicked_connect(formated_data))
 
     def invoDataSubmitBtn_clicked_connect(self,formated_data):
+        invoNo = self.mainUI.lineEdit_invoNumber.text()
         img_fileName = formated_data[2].split("/")[-1]
-        if "ocr_similarityValue" in formated_data[0].columns:
-            formated_data[0].to_csv("csv data/" + str(formated_data[1])+".csv", index=False)
+        csvFileName = img_fileName.split(".")[0]
+        if "ocr_similarityInvoNoValue" in formated_data[0].columns:
+            formated_data[0].to_csv("csv data/" + str(csvFileName)+".csv", index=False)
             self.copyImageTolocalDir(formated_data[2])
+            dbData = [formated_data[1],invoNo,img_fileName,csvFileName+".csv"]
+            self.update_database(dbData)
         else:
-            print(
-                img_fileName, "could not find invoice number amoung ocr Data"
-            )
-        dbData = [formated_data[1],img_fileName,formated_data[1]+"csv"]
-        self.update_database(dbData)
-
+            print(img_fileName, "could not find invoice number amoung ocr Data")
+        
     def copyImageTolocalDir(self,img_filePath):
             shutil.copy(img_filePath, "invoices\\")
 
@@ -110,8 +110,9 @@ class page_collect:
             self.db.connect()
 
             for datum in formatedData:
-                self.tblOCRData.set_invo_no(datum[0])
-                self.tblOCRData.set_file_path(datum[-2])
+                self.tblOCRData.set_index_no(datum[0])
+                self.tblOCRData.set_invo_no(datum[1])
+                self.tblOCRData.set_image_name(datum[-2])
                 self.tblOCRData.set_csv_file_name(datum[-1])
                 self.tblOCRData.insertData(db=self.db.get_db())
 

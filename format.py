@@ -14,7 +14,9 @@ class FormatData:
     if self.isOCRIdentifyInvoiceNo(ocrFileData,invoiceNo) == False:
       return (ocrFileData,testData)
 
-    ocrFileData['ocr_similarityValue'] = None
+    ocrFileData['ocr_similarityDateValue'] = None
+    ocrFileData['ocr_similarityOCRValue'] = None
+    ocrFileData['ocr_similarityInvoNoValue'] = None
 
     # Add new Invoice Number patterns into Collection
     self.identifyNewInvoiceNoPatters(invoiceNo)
@@ -27,25 +29,55 @@ class FormatData:
 
       # Add ocr_similarityValue to Date formats
       if self.identify_dates(ocrDatum) == True:
-        ocrFileData.at[ocrFileindex, 'ocr_similarityValue'] = 0
-        continue
+        ocrFileData.at[ocrFileindex, 'ocr_similarityDateValue'] = 0
+      else:
+        ocrFileData.at[ocrFileindex, 'ocr_similarityDateValue'] = 1
 
       # Add ocr_similarityValue to Data frame
-      ocrFileData.at[ocrFileindex, 'ocr_similarityValue'] = self.similarityValue(str(ocrDatum))
+      ocrFileData.at[ocrFileindex, 'ocr_similarityOCRValue'] = self.similarityValue(str(ocrDatum))
 
       # Add ocr_similarityValue to Invoice No patterns
-      found =False
       for ocrDatum1 in ocrDatum.split(' '):
         existInvoNoPatterns = open('metaData/invoiceNoPatterns.txt','r')
         for existInvoNoPattern in existInvoNoPatterns:
           if self.invoiceNoPatternMatch(existInvoNoPattern,ocrDatum1) == True:
-            ocrFileData.at[ocrFileindex, 'ocr_similarityValue'] = 1
+            ocrFileData.at[ocrFileindex, 'ocr_similarityInvoNoValue'] = 1
             print('found ocr pattern')
-            found =True
-        if found:
-          break
+          else:
+            ocrFileData.at[ocrFileindex, 'ocr_similarityInvoNoValue'] = 0
 
     return([ocrFileData,testData])
+  
+  
+  def formatInvoice(self,ocrFileData:pd):
+    ocrFileData['ocr_similarityDateValue'] = None
+    ocrFileData['ocr_similarityOCRValue'] = None
+    ocrFileData['ocr_similarityInvoNoValue'] = None
+
+    for ocrFileindex, ocrFileRow in ocrFileData.iterrows():
+      ocrDatum = ocrFileRow["ocr_data"]
+
+      # Add ocr_similarityValue to Date formats
+      if self.identify_dates(ocrDatum) == True:
+        ocrFileData.at[ocrFileindex, 'ocr_similarityDateValue'] = 0
+      else:
+        ocrFileData.at[ocrFileindex, 'ocr_similarityDateValue'] = 1
+
+      # Add ocr_similarityValue to Data frame
+      ocrFileData.at[ocrFileindex, 'ocr_similarityOCRValue'] = self.similarityValue(str(ocrDatum))
+
+      # Add ocr_similarityValue to Invoice No patterns
+      for ocrDatum1 in ocrDatum.split(' '):
+        existInvoNoPatterns = open('metaData/invoiceNoPatterns.txt','r')
+        for existInvoNoPattern in existInvoNoPatterns:
+          if self.invoiceNoPatternMatch(existInvoNoPattern,ocrDatum1) == True:
+            ocrFileData.at[ocrFileindex, 'ocr_similarityInvoNoValue'] = 1
+            print('found ocr pattern')
+          else:
+            ocrFileData.at[ocrFileindex, 'ocr_similarityInvoNoValue'] = 0
+
+    return(ocrFileData)
+
 
   def isThisInvoiceNo(self,ocrDatum,invoiceNo):
     invoiceNo = re.sub(r'\b(\d)+([a-zA-Z])+\b', '', invoiceNo)
@@ -63,7 +95,7 @@ class FormatData:
         ocrDatum1 = re.sub(r'\b(\d)+([a-zA-Z])+\b', '', ocrDatum1)
         # print(ocrValue,(SequenceMatcher(None, invoiceNo, ocrValue).ratio()))
         if (SequenceMatcher(None, invoiceNo, ocrDatum1).ratio()) > 0.7:
-          # print('ocr_value: ',ocrDatum1)
+          print('ocr_value: ',ocrDatum1)
           return True
         else:
           continue
@@ -100,7 +132,7 @@ class FormatData:
                 date = True
                 break
             except ValueError:
-                continue
+                date = False
 
     return date
 

@@ -75,3 +75,6 @@ CMakeLists.txt.user*
 /csv data
 /invoices
 /metaData
+/dataset
+/invoices-donut-data-v1.py
+/invoice-spanish-data.py

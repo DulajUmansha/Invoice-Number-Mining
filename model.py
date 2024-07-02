@@ -5,7 +5,13 @@ from tensorflow.keras import layers, models
 
 class Model:
   def __init__(self) -> None:
-      pass
+      self.epochs = 10
+
+  def get_epochs(self):
+        return self.epochs
+
+  def set_epochs(self, value):
+        self.epochs = value
 
   def __call__(self, input_shape):
         self.model = Sequential()
@@ -17,5 +23,5 @@ class Model:
 
         return self.model
 
-  def train(self, x_train, y_train):
-    self.model.fit(x_train, y_train, epochs=10, batch_size=9)
+  def train(self, x_train, y_train,callback):
+    self.model.fit(x_train, y_train, epochs=self.epochs, batch_size=9,callbacks=[callback])

@@ -38,14 +38,16 @@ class page_ocrLibrary:
         self.ocrDataList = []
         self.formatData = FormatData()
         self.tblOCRData = tbl_ocr_data()
-        self.mainUI.library_listWidget.currentItemChanged.connect(
-            self.library_listWidget_currentItemChanged
-        )
+        self.mainUI.library_listWidget.currentItemChanged.connect(self.library_listWidget_currentItemChanged)
+        self.mainUI.ocrLibraryBackBtn.clicked.connect(self.ocrLibraryBackBtn_clicked)
 
     def stackedBtn_clicked(self):
         self.mainUI.stackedWidget.setCurrentIndex(6)
         self.addimages()
         self.library_listWidget_currentItemChanged()
+
+    def ocrLibraryBackBtn_clicked(self):
+        self.mainUI.stackedWidget.setCurrentIndex(3)
 
     def addimages(self):
         self.mainUI.library_listWidget.clear()
