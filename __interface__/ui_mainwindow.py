@@ -203,10 +203,10 @@ class Ui_MainWindow(object):
 "	border: solid;\n"
 "}\n"
 "QTableView{\n"
-"	background-color: rgba(0,0,0,50);\n"
+"	background-color: rgba(0,0,0,100);\n"
 ""
                         "	color: rgb(255, 255, 255);\n"
-"	font-size:22px;\n"
+"	font-size:18px;\n"
 "}\n"
 "QTableView::item\n"
 "{\n"
@@ -229,22 +229,21 @@ class Ui_MainWindow(object):
 "	background-color: rgba(0,0,0,70);\n"
 "}\n"
 "\n"
-"\n"
-"QHeaderView::section,QTableCornerButton::section\n"
+"QHeaderView::section,QTableCornerButton:section\n"
 "{\n"
 "	font-size:18px;\n"
 "    text-align:center;\n"
 "    padding:3px;\n"
 "    margin:0px;\n"
 "	color: rgb(255, 255, 255);\n"
-"	background-color: rgba(2,2,50,200);\n"
-"    border:1px solid #242424;\n"
+"	background-color: rgba(0,0,0,0);\n"
+"    border:0px;\n"
 "	border-radius: 8px;\n"
 "}\n"
 "QHeaderView::section:selected\n"
 "{\n"
 "    color:#FFFFFF;\n"
-"    border:1px solid #242424;\n"
+"    border:0px solid;\n"
 "}")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -615,14 +614,18 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.label_7, 0, 0, 1, 1, Qt.AlignHCenter)
 
-        self.frame_11 = QFrame(self.frame_6)
-        self.frame_11.setObjectName(u"frame_11")
-        sizePolicy1.setHeightForWidth(self.frame_11.sizePolicy().hasHeightForWidth())
-        self.frame_11.setSizePolicy(sizePolicy1)
-        self.frame_11.setFrameShape(QFrame.StyledPanel)
-        self.frame_11.setFrameShadow(QFrame.Raised)
+        self.historyCountBtn = QPushButton(self.frame_6)
+        self.historyCountBtn.setObjectName(u"historyCountBtn")
+        self.historyCountBtn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.historyCountBtn.setLayoutDirection(Qt.LeftToRight)
+        self.historyCountBtn.setAutoFillBackground(False)
 
-        self.gridLayout_7.addWidget(self.frame_11, 1, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.historyCountBtn, 1, 0, 1, 1, Qt.AlignHCenter|Qt.AlignBottom)
+
+        self.label_25 = QLabel(self.frame_6)
+        self.label_25.setObjectName(u"label_25")
+
+        self.gridLayout_7.addWidget(self.label_25, 2, 0, 1, 1, Qt.AlignHCenter|Qt.AlignTop)
 
 
         self.gridLayout_6.addWidget(self.frame_6, 3, 1, 1, 1)
@@ -1263,10 +1266,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout_27.addWidget(self.label_24, 0, 0, 1, 1, Qt.AlignLeft)
 
-        self.tableView = QTableView(self.page_extractHistory)
-        self.tableView.setObjectName(u"tableView")
+        self.tableView_extractedHistory = QTableView(self.page_extractHistory)
+        self.tableView_extractedHistory.setObjectName(u"tableView_extractedHistory")
+        self.tableView_extractedHistory.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tableView_extractedHistory.setTextElideMode(Qt.ElideMiddle)
+        self.tableView_extractedHistory.verticalHeader().setVisible(False)
 
-        self.gridLayout_27.addWidget(self.tableView, 2, 0, 1, 1)
+        self.gridLayout_27.addWidget(self.tableView_extractedHistory, 2, 0, 1, 1)
 
         self.extractHistoryBackBtn = QPushButton(self.page_extractHistory)
         self.extractHistoryBackBtn.setObjectName(u"extractHistoryBackBtn")
@@ -1319,6 +1325,8 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"minute per Invoice", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Avg Speed", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"History", None))
+        self.historyCountBtn.setText(QCoreApplication.translate("MainWindow", u"None", None))
+        self.label_25.setText(QCoreApplication.translate("MainWindow", u"Invoices", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"MEMORY", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"CPU", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Accuracy", None))

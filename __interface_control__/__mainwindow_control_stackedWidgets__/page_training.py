@@ -1,3 +1,4 @@
+import json
 import os
 from __interface__.ui_mainwindow import Ui_MainWindow
 from __interface_control__.circle_progress_bar import CPBar
@@ -10,7 +11,7 @@ import pandas as pd
 
 class TrainThread(QThread):
     progress = Signal(int)
-    finished = Signal(float,float)
+    finished = Signal(float,float,int,int)
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -18,6 +19,8 @@ class TrainThread(QThread):
         self.y_train = []
         self.x_test = []
         self.y_test = []
+        self.max_time_steps = 0
+        self.trained_invo = 0
         self.metaData = pd.read_csv('metaData/metaData.csv')
         self.model = Model()
         
@@ -46,7 +49,7 @@ class TrainThread(QThread):
         self.model.train(self.x_train,self.y_train,callback)
         model.save("metaData/model.h5")
         acc,loss =self.testModel(model)
-        self.finished.emit(acc,loss)
+        self.finished.emit(acc,loss,self.trained_invo,self.max_time_steps)
 
     def scaleData(self):
         a=[]
@@ -57,9 +60,9 @@ class TrainThread(QThread):
             except:
                 ocrData = ocrData.drop(columns=['ocr_data'])
             a.append(np.array(ocrData.values.tolist()))
-        max_time_steps = max(len(sequence) for sequence in a)
+        self.max_time_steps = max(len(sequence) for sequence in a)
         a = tf.keras.preprocessing.sequence.pad_sequences(
-                a, padding="post", maxlen=max_time_steps, dtype="float32"
+                a, padding="post", maxlen=self.max_time_steps, dtype="float32"
                 )
         max_a = np.max(a)
 
@@ -88,6 +91,7 @@ class TrainThread(QThread):
 
         self.x_train = tf.keras.preprocessing.sequence.pad_sequences(self.x_train, padding="post", maxlen=max_time_steps, dtype="float32")
         self.progress.emit(5)
+        self.trained_invo = self.x_train.shape[0]
 
     def splitTrainTest(self):
         test_size = 0.2 
@@ -134,17 +138,32 @@ class page_training(QObject):
         print(f'Status: Epoch {epoch}')
         self.prograssCircle.upd(epoch/100)
     
-    def train_finished(self,acc,loss):
+    def train_finished(self,acc,loss,trained_invo,max_time_steps):
         self.qthread.quit()
         self.mainUI.startTrainBtn.setEnabled(True)
         acc = round(acc,2)*100
         loss = round(loss,2)*100
         self.mainUI.label_afterTrainAcc.setText(str(acc)+"%")
         self.mainUI.label_afterTrainLoss.setText(str(loss)+"%")
+        self.saveStats(acc,trained_invo,max_time_steps)
         
     def loadScreenStats(self):
         files = os.listdir("csv data")
         self.mainUI.label_NoofInvoicestoTrain.setText(str(len(files)))
+
+    def saveStats(self,acc,trained_invo,max_time_steps):
+        my_dict = {
+            "accuracy": acc,
+            "trained_invoices": trained_invo,
+            "max_time_steps": max_time_steps
+        }
+
+        # File path where the JSON will be saved
+        file_path = "metaData/stats.json"
+
+        # Write the dictionary to a JSON file
+        with open(file_path, 'w') as json_file:
+            json.dump(my_dict, json_file)
         
     
     

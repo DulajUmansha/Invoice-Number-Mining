@@ -17,7 +17,7 @@ class MainWindow(QMainWindow, QWidget):
         self.mainUI.setupUi(self)
 
         self.db = Database()
-        self.dashboard = page_dashboard(self.mainUI)
+        self.dashboard = page_dashboard(self.mainUI,self.db)
         self.account = page_account(self.mainUI)
         self.extract = page_extract(self.mainUI,self.db)
         self.training = page_training(self.mainUI,self.db)

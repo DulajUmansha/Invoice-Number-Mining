@@ -187,9 +187,9 @@ QDateTimeEdit::down-button {
 	border: solid;
 }
 QTableView{
-	background-color: rgba(0,0,0,50);
+	background-color: rgba(0,0,0,100);
 	color: rgb(255, 255, 255);
-	font-size:22px;
+	font-size:18px;
 }
 QTableView::item
 {
@@ -212,22 +212,21 @@ QHeaderView{
 	background-color: rgba(0,0,0,70);
 }
 
-
-QHeaderView::section,QTableCornerButton::section
+QHeaderView::section,QTableCornerButton:section
 {
 	font-size:18px;
     text-align:center;
     padding:3px;
     margin:0px;
 	color: rgb(255, 255, 255);
-	background-color: rgba(2,2,50,200);
-    border:1px solid #242424;
+	background-color: rgba(0,0,0,0);
+    border:0px;
 	border-radius: 8px;
 }
 QHeaderView::section:selected
 {
     color:#FFFFFF;
-    border:1px solid #242424;
+    border:0px solid;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -898,19 +897,26 @@ QPushButton:hover{
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="0">
-                  <widget class="QFrame" name="frame_11">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
+                 <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                  <widget class="QPushButton" name="historyCountBtn">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
                    </property>
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
+                   <property name="layoutDirection">
+                    <enum>Qt::LeftToRight</enum>
                    </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string>None</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0" alignment="Qt::AlignHCenter|Qt::AlignTop">
+                  <widget class="QLabel" name="label_25">
+                   <property name="text">
+                    <string>Invoices</string>
                    </property>
                   </widget>
                  </item>
@@ -2062,7 +2068,17 @@ Recodes</string>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QTableView" name="tableView"/>
+            <widget class="QTableView" name="tableView_extractedHistory">
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+             <property name="textElideMode">
+              <enum>Qt::ElideMiddle</enum>
+             </property>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+            </widget>
            </item>
            <item row="1" column="0" alignment="Qt::AlignLeft">
             <widget class="QPushButton" name="extractHistoryBackBtn">
