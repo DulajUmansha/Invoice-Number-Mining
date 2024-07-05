@@ -445,6 +445,15 @@ class Ui_MainWindow(object):
         font3 = QFont()
         font3.setFamilies([u"Inter UI"])
         self.btn_setting.setFont(font3)
+        self.btn_setting.setStyleSheet(u"QPushButton{\n"
+"	text-align:center;\n"
+"	padding:10;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"	padding:10;\n"
+"	text-align:center;\n"
+"}")
         icon6 = QIcon()
         icon6.addFile(u":/icon/resource/icon/setting.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_setting.setIcon(icon6)
@@ -1086,12 +1095,21 @@ class Ui_MainWindow(object):
         self.tableView__image_data.setSizePolicy(sizePolicy5)
         self.tableView__image_data.setFont(font14)
         self.tableView__image_data.setAutoFillBackground(False)
-        self.tableView__image_data.setStyleSheet(u"")
+        self.tableView__image_data.setStyleSheet(u"QTableView{\n"
+"	background-color: rgba(0,0,0,100);\n"
+"	color: rgb(255, 255, 255);\n"
+"	font-size:10px;\n"
+"}\n"
+"QHeaderView::section,QTableCornerButton:section\n"
+"{\n"
+"	font-size:12px;\n"
+"}")
         self.tableView__image_data.setLineWidth(1)
         self.tableView__image_data.setMidLineWidth(10)
         self.tableView__image_data.setDragDropMode(QAbstractItemView.DragDrop)
         self.tableView__image_data.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableView__image_data.setIconSize(QSize(100, 100))
+        self.tableView__image_data.verticalHeader().setVisible(False)
 
         self.verticalLayout_7.addWidget(self.tableView__image_data)
 
@@ -1293,9 +1311,8 @@ class Ui_MainWindow(object):
         self.lineEdit_invoNumber.returnPressed.connect(self.ocrBtn.click)
         self.image_preview_clearBtn.clicked.connect(self.lineEdit_invoNumber.clear)
         self.image_preview_list_clearAllBtn.clicked["bool"].connect(self.image_preview_clearBtn.click)
-        self.image_preview_list_clearAllBtn.clicked.connect(self.ocrBtn.click)
         self.invoDataSubmitBtn.clicked["bool"].connect(self.tableView__image_data.reset)
-        self.image_preview_list_clearAllBtn.clicked["bool"].connect(self.tableView__image_data.reset)
+        self.image_preview_list_clearAllBtn.clicked["bool"].connect(self.tableView__image_data.clearSelection)
         self.clearInvoiceBtn.clicked["bool"].connect(self.lineEdit_invoiceNo.clear)
         self.startExtractBtn.clicked["bool"].connect(self.lineEdit_invoiceNo.clear)
 

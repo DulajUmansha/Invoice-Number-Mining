@@ -32,9 +32,8 @@ class OCRThread(QThread):
 
             data = self.ocr.read(self.filePaths[0])
             self.update_progress(70)
-
             formated_ocrData:list = self.formatData.format(data, self.invoiceNumber[0])
-            formated_ocrData.append(self.filePaths[0])
+            formated_ocrData = formated_ocrData+(self.filePaths[0],)
             self.finished.emit(formated_ocrData)
 
         except Exception as e:
@@ -58,6 +57,8 @@ class page_collect:
         self.ListWidget.fileDropped.connect(self.pictureDropped)
         self.mainUI.ocr_library_btn.clicked.connect(self.ocrLibrary.stackedBtn_clicked)
         self.mainUI.ocrBtn.clicked.connect(self.ocrBtn_clicked_connect)
+        self.mainUI.image_preview_clearBtn.clicked.connect(self.ListWidget.clearList)
+        self.mainUI.image_preview_list_clearAllBtn.clicked.connect(self.image_preview_list_clearAllBtn_clicked)
 
     def stackedBtn_clicked(self):
         self.mainUI.stackedWidget.setCurrentIndex(3)
@@ -101,6 +102,7 @@ class page_collect:
             self.update_database(dbData)
         else:
             print(img_fileName, "could not find invoice number amoung ocr Data")
+        self.mainUI.image_preview_list_clearAllBtn.click()
         
     def copyImageTolocalDir(self,img_filePath):
             shutil.copy(img_filePath, "invoices\\")
@@ -109,14 +111,16 @@ class page_collect:
         try:
             self.db.connect()
 
-            for datum in formatedData:
-                self.tblOCRData.set_index_no(datum[0])
-                self.tblOCRData.set_invo_no(datum[1])
-                self.tblOCRData.set_image_name(datum[-2])
-                self.tblOCRData.set_csv_file_name(datum[-1])
-                self.tblOCRData.insertData(db=self.db.get_db())
+            self.tblOCRData.set_index_no(formatedData[0])
+            self.tblOCRData.set_invo_no(formatedData[1])
+            self.tblOCRData.set_image_name(formatedData[-2])
+            self.tblOCRData.set_csv_file_name(formatedData[-1])
+            self.tblOCRData.insertData(db=self.db.get_db())
 
         except Exception as e:
             print(f"Error updating database: {str(e)}")
         finally:
             self.db.close()
+
+    def image_preview_list_clearAllBtn_clicked(self):
+        self.model.clear()

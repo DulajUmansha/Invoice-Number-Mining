@@ -1,10 +1,11 @@
 from PySide6 import QtCore
 from PySide6.QtCore import Qt
+import pandas as pd
 
 
 class TableModel(QtCore.QAbstractTableModel):
 
-    def __init__(self, data):
+    def __init__(self, data:pd.DataFrame):
         super(TableModel, self).__init__()
         self._data = data
 
@@ -27,3 +28,7 @@ class TableModel(QtCore.QAbstractTableModel):
 
             if orientation == Qt.Vertical:
                 return str(self._data.index[section])
+            
+    def clear(self):
+        self._data = self._data[0:0]
+        self.layoutChanged.emit()

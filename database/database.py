@@ -5,8 +5,8 @@ class Database:
     def __init__(self, connection_name="qt_sql_default_connection") -> None:
         self.db_host_name = "127.0.0.1"
         self.db_name = "invoice_number_mining"
-        self.db_user_name = "root"
-        self.db_password = ""
+        self.db_user_name = "dulaj"
+        self.db_password = "master123@Umansha"
         self.db = QSqlDatabase.addDatabase("QMYSQL", connection_name)
 
     def get_db(self):

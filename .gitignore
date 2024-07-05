@@ -78,3 +78,4 @@ CMakeLists.txt.user*
 /dataset
 /invoices-donut-data-v1.py
 /invoice-spanish-data.py
+/test.py

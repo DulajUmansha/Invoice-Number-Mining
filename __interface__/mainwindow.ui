@@ -629,6 +629,17 @@ QProgressBar{
               <pointsize>-1</pointsize>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+	text-align:center;
+	padding:10;
+}
+
+QPushButton:hover{
+	padding:10;
+	text-align:center;
+}</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -701,7 +712,7 @@ QPushButton:hover{
           <enum>QFrame::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="page_dashboard">
           <layout class="QGridLayout" name="gridLayout_5">
@@ -1738,7 +1749,15 @@ QPushButton:hover{
                 <bool>false</bool>
                </property>
                <property name="styleSheet">
-                <string notr="true"/>
+                <string notr="true">QTableView{
+	background-color: rgba(0,0,0,100);
+	color: rgb(255, 255, 255);
+	font-size:10px;
+}
+QHeaderView::section,QTableCornerButton:section
+{
+	font-size:12px;
+}</string>
                </property>
                <property name="lineWidth">
                 <number>1</number>
@@ -1758,6 +1777,9 @@ QPushButton:hover{
                  <height>100</height>
                 </size>
                </property>
+               <attribute name="verticalHeaderVisible">
+                <bool>false</bool>
+               </attribute>
               </widget>
              </item>
              <item>
@@ -2112,7 +2134,7 @@ Recodes</string>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>639</x>
+     <x>634</x>
      <y>594</y>
     </hint>
     <hint type="destinationlabel">
@@ -2132,7 +2154,7 @@ Recodes</string>
      <y>439</y>
     </hint>
     <hint type="destinationlabel">
-     <x>639</x>
+     <x>634</x>
      <y>594</y>
     </hint>
    </hints>
@@ -2150,22 +2172,6 @@ Recodes</string>
     <hint type="destinationlabel">
      <x>729</x>
      <y>439</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>image_preview_list_clearAllBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>ocrBtn</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>943</x>
-     <y>592</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>720</x>
-     <y>266</y>
     </hint>
    </hints>
   </connection>
@@ -2189,7 +2195,7 @@ Recodes</string>
    <sender>image_preview_list_clearAllBtn</sender>
    <signal>clicked(bool)</signal>
    <receiver>tableView__image_data</receiver>
-   <slot>reset()</slot>
+   <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>943</x>
@@ -2208,12 +2214,12 @@ Recodes</string>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>697</x>
-     <y>499</y>
+     <x>671</x>
+     <y>473</y>
     </hint>
     <hint type="destinationlabel">
-     <x>903</x>
-     <y>210</y>
+     <x>772</x>
+     <y>222</y>
     </hint>
    </hints>
   </connection>
@@ -2224,12 +2230,12 @@ Recodes</string>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>708</x>
-     <y>285</y>
+     <x>671</x>
+     <y>270</y>
     </hint>
     <hint type="destinationlabel">
-     <x>862</x>
-     <y>213</y>
+     <x>772</x>
+     <y>222</y>
     </hint>
    </hints>
   </connection>

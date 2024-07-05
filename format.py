@@ -8,7 +8,7 @@ class FormatData:
   def __init__(self) -> None:
     self.wordSimilarityModel = SentenceTransformer("all-MiniLM-L6-v2")
 
-  def format(self, ocrFileData:pd, invoiceNo):
+  def format(self, ocrFileData:pd.DataFrame, invoiceNo):
     testData = None
 
     if self.isOCRIdentifyInvoiceNo(ocrFileData,invoiceNo) == False:
@@ -46,7 +46,7 @@ class FormatData:
           else:
             ocrFileData.at[ocrFileindex, 'ocr_similarityInvoNoValue'] = 0
 
-    return([ocrFileData,testData])
+    return(ocrFileData,testData)
   
   
   def formatInvoice(self,ocrFileData:pd):
@@ -82,7 +82,7 @@ class FormatData:
   def isThisInvoiceNo(self,ocrDatum,invoiceNo):
     invoiceNo = re.sub(r'\b(\d)+([a-zA-Z])+\b', '', invoiceNo)
     ocrDatum = re.sub(r'\b(\d)+([a-zA-Z])+\b', '', ocrDatum)
-    if (SequenceMatcher(None, invoiceNo, ocrDatum).ratio()) > 0.7:
+    if (SequenceMatcher(None, invoiceNo, ocrDatum).ratio()) > 0.65:
         return True
     else:
       return False
@@ -94,7 +94,7 @@ class FormatData:
       for ocrDatum1 in ocrValue.split(' '):
         ocrDatum1 = re.sub(r'\b(\d)+([a-zA-Z])+\b', '', ocrDatum1)
         # print(ocrValue,(SequenceMatcher(None, invoiceNo, ocrValue).ratio()))
-        if (SequenceMatcher(None, invoiceNo, ocrDatum1).ratio()) > 0.7:
+        if (SequenceMatcher(None, invoiceNo, ocrDatum1).ratio()) > 0.65:
           print('ocr_value: ',ocrDatum1)
           return True
         else:
