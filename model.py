@@ -14,14 +14,28 @@ class Model:
         self.epochs = value
 
   def __call__(self, input_shape):
-        self.model = Sequential()
-        self.model.add(Input(shape=input_shape))  # Input layer
-        self.model.add(TimeDistributed(LSTM(64, activation='relu', return_sequences=True)))  # TimeDistributed LSTM layer
-        self.model.add(TimeDistributed(LSTM(32, activation='elu')))  # Additional TimeDistributed LSTM layer
-        self.model.add(Flatten())  # Flatten the output for dense layers
-        self.model.add(Dense(1, activation='linear'))  # Output layer with linear activation since it's a regression problem
+      self.model = Sequential()
+      self.model.add(Input(shape=input_shape))
 
-        return self.model
+      # Convolutional layers
+      self.model.add(TimeDistributed(layers.Conv1D(32, kernel_size=3, activation='relu')))
+      self.model.add(TimeDistributed(layers.MaxPooling1D(pool_size=2)))
+
+      # LSTM layer
+      self.model.add(TimeDistributed(LSTM(20, activation='relu', return_sequences=True)))
+
+      # Flatten the output for dense layers
+      self.model.add(Flatten())
+
+      # Dense layers
+      self.model.add(Dense(64, activation='relu'))
+      self.model.add(Dense(32, activation='relu'))
+      self.model.add(Dense(16, activation='relu'))
+
+      # Output layer
+      self.model.add(Dense(1, activation='softplus'))
+
+      return self.model
 
   def train(self, x_train, y_train,callback):
     self.model.fit(x_train, y_train, epochs=self.epochs, batch_size=9,callbacks=[callback])

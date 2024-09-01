@@ -89,9 +89,15 @@ class TrainThread(QThread):
         self.y_train = np.array(self.y_train)
         max_time_steps = max(len(sequence) for sequence in self.x_train)
 
-        self.x_train = tf.keras.preprocessing.sequence.pad_sequences(self.x_train, padding="post", maxlen=max_time_steps, dtype="float32")
+        x_train_padded = tf.keras.preprocessing.sequence.pad_sequences(self.x_train, padding="post", maxlen=max_time_steps, dtype="float32")
         self.progress.emit(5)
-        self.trained_invo = self.x_train.shape[0]
+        # Replace padding 0s with -1s
+        for i, sequence in enumerate(self.x_train):
+            original_length = len(sequence)
+            if original_length < max_time_steps:
+                x_train_padded[i, original_length:] = -1
+        self.trained_invo = x_train_padded.shape[0]
+        self.x_train = x_train_padded
 
     def splitTrainTest(self):
         test_size = 0.2 
